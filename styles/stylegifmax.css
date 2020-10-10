@@ -1,0 +1,41 @@
+
+#x{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    right: 15%;
+    top: 8vh;
+}
+
+
+
+#gifs{
+    display: flex;
+    position: relative;
+    top: 10vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#gifs div{
+   margin: 1%;
+}
+
+#gif{
+    border: 1px solid black;
+    width: 57%;
+    height: 60vh;
+}
+.flecha{
+    position: relative;
+    height: 4vh;
+    border: unset;
+}
+
+#pie{
+    position: relative;
+    top: 8vh;
+    display: flex;
+    justify-content: space-around;
+}
+

@@ -1,0 +1,283 @@
+
+ 
+    /*barra azul*/
+#barraAzul{
+    background-color: #572EE5;
+    height: 5px;
+    position: relative;
+    bottom: 7px;
+}
+/*barra de navegacion*/
+#logo{
+    position: relative;
+    left: 3vw;
+}
+
+nav{
+    display: flex;
+}
+
+ul{
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr  1fr;
+    left:49vw;
+}
+
+li{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    align-items: center;
+    color: #572EE5;
+    font-family: 'Montserrat-bold', sans-serif;
+}
+
+.menu{
+    text-decoration: none;
+    color: #572EE5;
+}
+.menu:visited{
+    color: #572EE5;
+}
+
+/*portada*/
+#titulo{
+    position: relative;
+    left: 34vw;
+    top: 3vh;
+    color: #572EE5;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vw;
+    display: inline-block;
+}
+
+#titulo span{
+    color: #50E3C2;
+}
+
+#titulo p{
+    position: relative;
+    bottom: 5vh;
+    left: 7vw;
+}
+
+#portada{
+    position: relative;
+    padding-left: 35vw;
+    bottom: 5vh;
+    
+}
+.imagenPortada{
+    width: 30vw;
+}
+
+#search{
+    position: relative;
+    left: 34vw;
+    width: 32vw;
+    height: 7vh;
+    border-radius: 27vw;
+    border-color: #572EE5;
+    outline: none;
+    bottom: 2.6vw;
+}
+
+#iconSearch{
+    position: relative;
+    left: 30.5vw;
+    bottom: 4.5vh;
+}
+
+#iconSearch:hover{
+    cursor: pointer;
+}
+
+
+/*busquedad de gifs*/
+#lineaGris{
+    width: 30%;
+    height: 1px;
+    background-color: #9CAFC3;
+    position: relative;
+    top: 5vh;
+    left: 1%;
+    display: none;
+}
+
+#cajaNombre{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#nombreBuscado{
+    color: #572EE5;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cuadro{
+    margin: 1%;
+    height: 20vh;
+    width: 20vw;
+    
+    position: relative;
+    top: 10vh;
+   
+}
+
+#cuadros{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+#gifNoEncontrado{
+    position: relative;
+    top: 20vh;
+    left: 35.7vw;
+    color: #50E3C2;
+    font-family: 'Montserrat', sans-serif;
+}
+#gifNoEncontrado p{
+    position: relative;
+    right: 15%;
+}
+
+
+
+
+/*trending*/
+#trending{
+    position: relative;
+    padding-left: 37.5vw;
+   
+}
+
+#trending h3{
+    position: relative;
+    padding-left: 9vw;
+    color: #572EE5;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+#trending p{
+    color: #572EE5;
+    font-family: 'Montserrat-medium', sans-serif; ;
+    position: relative;
+    display: inline-block;
+    
+}
+
+/*trending gifs*/
+#trendinggif{
+    background-color: #F3F5F8;
+    height:60vh;
+    position: relative;
+    
+}
+
+#trendinggif h2{
+    position: relative;
+    padding-left: 43.5vw;
+    top: 5vh;
+    color: #572EE5;
+    font-family: 'Montserrat-bold', sans-serif;
+}
+
+#trendinggif p{
+    
+    position: relative;
+    padding-left: 39vw;
+    top: 5vh;
+
+}
+
+#gifs{
+    display: flex;
+    transition: all 1.5s ease;
+}
+
+#gifs div{
+    margin-left: 1%;
+   
+    
+}
+
+#gif{
+    border: 1px solid black;
+    width: 25vw;
+    height: 35vh;
+    position: relative;
+    
+
+}
+
+.corazon{
+    position: relative;
+    bottom: 35vh;
+    padding-left: 18vw;
+}
+
+
+#gifPadre{
+    margin: 0 auto;
+    width: 78vw;
+    overflow: hidden;
+    border: 1px solid black;
+    height: 35vh;
+    position: relative;
+    /*background: linear-gradient( #572EE5 60%, white 90%);*/
+}
+
+
+#flecha-Izquierda{
+    position: relative;
+    top: 22vh;
+    left: 4vw;
+    padding-left: 1.5vw;
+    display: inline-block;
+}
+
+#flecha-Derecha{
+    position: relative;
+    left: 89vw;
+    top: -20vh;
+    display: inline-block;
+}
+
+/*footer*/
+footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+footer div{
+    display: flex;
+    position: relative;
+}
+
+footer a{
+    position: relative;
+    top: 3vh;
+}
+
+#compartir{
+ display: flex;
+ justify-content: space-between;
+ width: 15%;
+}
+
+footer p{
+    font-family: 'Roboto', sans-serif;
+    padding-top: 0.8vh;
+}
+
+#barraAzul2{
+    background-color: #572EE5;
+    width: 100%;
+    height: 5px;
+    position: relative;
+}
