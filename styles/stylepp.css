@@ -144,22 +144,36 @@ li{
     position: relative;
     right: 15%;
 }
+#cajaVermas{
+    display: flex;
+    justify-content: center;
+}
 
 
+#btnVermas{
+    border: 1px solid #572EE5;
+    height: 5vh;
+    width: 7vw;
+    display: none;
+    justify-content: center;
+    border-radius: 10vw;
+    color: #572EE5;
+    align-items: center;
+}
 
+#btnVermas:hover{
+    background-color: #572EE5;
+    color: white;
+}
 
 /*trending*/
-#trending{
-    position: relative;
-    padding-left: 37.5vw;
-   
-}
 
 #trending h3{
     position: relative;
-    padding-left: 9vw;
     color: #572EE5;
     font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
     
 }
 
@@ -167,7 +181,8 @@ li{
     color: #572EE5;
     font-family: 'Montserrat-medium', sans-serif; ;
     position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     
 }
 
@@ -181,7 +196,8 @@ li{
 
 #trendinggif h2{
     position: relative;
-    padding-left: 43.5vw;
+    display: flex;
+    justify-content: center;
     top: 5vh;
     color: #572EE5;
     font-family: 'Montserrat-bold', sans-serif;
@@ -190,7 +206,8 @@ li{
 #trendinggif p{
     
     position: relative;
-    padding-left: 39vw;
+    display: flex;
+    justify-content: center;
     top: 5vh;
 
 }
@@ -218,7 +235,7 @@ li{
 .corazon{
     position: relative;
     bottom: 35vh;
-    padding-left: 18vw;
+    margin-left: 18vw;
 }
 
 

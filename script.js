@@ -44,7 +44,7 @@ Trendings()
             gif.appendChild(imggif);
             let corazon = document.createElement('img')
 
-            //mouseover
+            //mouseover 
             // carrusel de gifs
             gif.addEventListener('mouseover', () => {
                 gif.style.backgroundColor = '#572EE5'
@@ -53,11 +53,14 @@ Trendings()
                 gif.appendChild(corazon);
                 corazon.classList.add('corazon')
                 corazon.style.display = 'block'
+                console.log('b')
             })
-
+            
             corazon.addEventListener('mouseover', () => {
-                corazon.setAttribute('src', 'imagenes/icon-fav-hover.svg')
-               
+                document.getElementsByClassName('corazon').src='imagenes/icon-fav-hover.svg'
+                console.log(document.getElementsByClassName('corazon'))
+                corazon.style.backgroundColor ='red'
+                console.log('a')
             })
 
             imggif.addEventListener('mouseout', () => {
@@ -66,9 +69,7 @@ Trendings()
                 corazon.style.display = 'none'
             })
 
-            /*corazon.addEventListener('mouseout', () => {
-                corazon.setAttribute('src', 'imagenes/icon-fav.svg')
-            })*/
+           
         }
     });
 
@@ -199,31 +200,62 @@ function modoNocturno() {
 
 // busquedad de gifs
 
-let lineaGris = document.getElementById('lineaGris')
+
+let offset = 12;
+
+let lineaGris = document.getElementById('lineaGris');
 let icon_search = document.getElementById('iconSearch');
-let nombreBuscado = document.getElementById('nombreBuscado')
-async function searchFunction() {
+let nombreBuscado = document.getElementById('nombreBuscado');
+async function searchFunction(offset) {
     let search = document.getElementById('search').value;
-    nombreBuscado.innerHTML=search
+    nombreBuscado.innerHTML = search
     console.log(search)
-    let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + search;
+    let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + search + '&limit=12' + '&offset=' + offset;
     let response = await fetch(url);
     let json = await response.json();
     let gifs = json.data;
     return gifs;
 }
 
+let btnVerMas = document.getElementById('btnVermas')
+
 
 icon_search.onclick = () => {
     lineaGris.style.display = 'inline-block'
-    searchFunction()
+    btnVerMas.style.display = 'flex'
+    searchFunction(offset)
         .then(imagen => {
             console.log(imagen);
+            let cuadros = document.getElementById('cuadros')
+            let gif;
             for (img of imagen) {
-                let gif = document.createElement('div');
-                let cuadros = document.getElementById('cuadros')
+                gif = document.createElement('div');
                 gif.setAttribute('class', 'cuadro')
                 cuadros.appendChild(gif)
+                cuadros.style.paddingBottom = '15vh '
+                let imggif = document.createElement('img');
+                imggif.setAttribute('src', img.images.original.url)
+                gif.appendChild(imggif);
+                imggif.style.height = '20vh';
+                imggif.style.width = '20vw'
+            }
+        })
+}
+
+
+btnVerMas.onclick = () =>{
+    offset = offset + 12;
+    console.log(offset);
+    searchFunction(offset)
+        .then(imagen => {
+            console.log(imagen);
+            let cuadros = document.getElementById('cuadros')
+            let gif;
+            for (img of imagen) {
+                gif = document.createElement('div');
+                gif.setAttribute('class', 'cuadro')
+                cuadros.appendChild(gif)
+                cuadros.style.paddingBottom = '15vh '
                 let imggif = document.createElement('img');
                 imggif.setAttribute('src', img.images.original.url)
                 gif.appendChild(imggif);
