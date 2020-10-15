@@ -236,6 +236,11 @@ li{
     position: relative;
     bottom: 35vh;
     margin-left: 18vw;
+    content: url('../imagenes/icon-fav.svg');
+}
+
+.corazon:hover{
+    content: url('../imagenes/icon-fav-hover.svg');
 }
 
 

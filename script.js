@@ -49,19 +49,24 @@ Trendings()
             gif.addEventListener('mouseover', () => {
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
-                corazon.setAttribute('src', 'imagenes/icon-fav.svg')
                 gif.appendChild(corazon);
                 corazon.classList.add('corazon')
                 corazon.style.display = 'block'
                 console.log('b')
             })
             
-            corazon.addEventListener('mouseover', () => {
-                document.getElementsByClassName('corazon').src='imagenes/icon-fav-hover.svg'
-                console.log(document.getElementsByClassName('corazon'))
-                corazon.style.backgroundColor ='red'
-                console.log('a')
-            })
+            corazon.onclick = function corazonClickActive(){
+                corazon.style.content ='url(../imagenes/icon-fav-active.svg)'
+                corazon.style.marginTop = '1%'
+                console.log('c')
+             }
+
+            corazon.onclick =function corazonclickDelete(){
+                corazon.style.content = 'url(../imagenes/icon-fav.svg)'
+            
+                console.log(corazon.style.content)
+            }
+ 
 
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
@@ -263,4 +268,9 @@ btnVerMas.onclick = () =>{
                 imggif.style.width = '20vw'
             }
         })
+}
+async function busquedad(){
+    let url = `api.giphy.com/v1/tags/related/${term}?api_key=${apiKey}`
+    
+
 }
