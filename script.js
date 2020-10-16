@@ -47,34 +47,41 @@ Trendings()
             //mouseover 
             // carrusel de gifs
             gif.addEventListener('mouseover', () => {
+
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
                 gif.appendChild(corazon);
                 corazon.classList.add('corazon')
                 corazon.style.display = 'block'
-                console.log('b')
-            })
-            
-            corazon.onclick = function corazonClickActive(){
-                corazon.style.content ='url(../imagenes/icon-fav-active.svg)'
-                corazon.style.marginTop = '1%'
-                console.log('c')
-             }
+                corazon.classList.add('iconfav')
+            }, false)
 
-            corazon.onclick =function corazonclickDelete(){
-                corazon.style.content = 'url(../imagenes/icon-fav.svg)'
-            
-                console.log(corazon.style.content)
-            }
- 
+            corazon.addEventListener('mouseover', function hoverfav() {
+                corazon.classList.toggle('iconfav-hover');
+                corazon.classList.toggle('iconfav');
+            })
+
+            corazon.addEventListener('mouseout', function unhoverfav() {
+                corazon.classList.toggle('iconfav');
+                corazon.classList.toggle('iconfav-hover');
+            })
+
+            corazon.addEventListener('click', function favgifs(event) {
+                event.target.classList.toggle('iconfavActive');
+                event.target.classList.toggle('iconfav');
+            })
+
+            /*function enviarFavStorage(corazon){
+                if(corazon.classList === 'iconfavactive'){
+                    sessionStorage.setItem
+                }
+            }*/ 
 
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
                 corazon.style.display = 'none'
             })
-
-           
         }
     });
 
@@ -234,7 +241,7 @@ icon_search.onclick = () => {
             let cuadros = document.getElementById('cuadros')
             let gif;
             for (img of imagen) {
-                gif = document.createElement('div');
+                gif = document.createElement('figure');
                 gif.setAttribute('class', 'cuadro')
                 cuadros.appendChild(gif)
                 cuadros.style.paddingBottom = '15vh '
@@ -248,7 +255,7 @@ icon_search.onclick = () => {
 }
 
 
-btnVerMas.onclick = () =>{
+btnVerMas.onclick = () => {
     offset = offset + 12;
     console.log(offset);
     searchFunction(offset)
@@ -269,8 +276,16 @@ btnVerMas.onclick = () =>{
             }
         })
 }
-async function busquedad(){
-    let url = `api.giphy.com/v1/tags/related/${term}?api_key=${apiKey}`
+
+search.addEventListener('focus', function cuadroSugerencias(){
     
+})
+
+
+async function busquedad() {
+    let url = `api.giphy.com/v1/tags?api_key=${apiKey}&q=${search.value}&limit=3`;
+    let primero = await fetch(url);
+    let segundo = await primero.json();
+    let sugerencias = segundo.data
 
 }

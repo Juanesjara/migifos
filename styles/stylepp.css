@@ -50,15 +50,16 @@ li{
     font-family: 'Montserrat', sans-serif;
     font-size: 2vw;
     display: inline-block;
+    margin-bottom: 5%;
 }
 
 #titulo span{
     color: #50E3C2;
 }
 
-#titulo p{
+#titulo div{
     position: relative;
-    bottom: 5vh;
+   
     left: 7vw;
 }
 
@@ -72,26 +73,54 @@ li{
     width: 30vw;
 }
 
-#search{
-    position: relative;
-    left: 34vw;
-    width: 32vw;
-    height: 7vh;
+.input{
+    border: 1px solid;
     border-radius: 27vw;
     border-color: #572EE5;
+    position: relative;
+    bottom: 5.4vh;
+    width: 40%;
+    left: 30vw;
+}
+
+#search{
+    position: relative;
+    left: 4vw;
+    width: 32vw;
+    height: 7vh;
     outline: none;
     bottom: 2.6vw;
+    border: none;
+    top: 0vw;
+    background-image: url('../imagenes/icon-search.svg');
+    background-repeat: no-repeat;
+    background-position: right;
 }
+
+#search:focus{
+    transition: 4s all linear;
+    background-image: none;
+    
+}
+
 
 #iconSearch{
     position: relative;
-    left: 30.5vw;
-    bottom: 4.5vh;
+    left: 4vw;
+    top: 0.4vw;
 }
 
 #iconSearch:hover{
     cursor: pointer;
 }
+
+.sugerencias{
+    border: 1px solid #572EE5;
+    width: 40%;
+    margin-left: 30vw;
+    margin-top: -5.6vh;
+}
+
 
 
 /*busquedad de gifs*/
@@ -101,7 +130,7 @@ li{
     background-color: #9CAFC3;
     position: relative;
     top: 5vh;
-    left: 1%;
+    left: 35%;
     display: none;
 }
 
@@ -109,12 +138,12 @@ li{
     position: relative;
     display: flex;
     justify-content: center;
-    
 }
 
 #nombreBuscado{
     color: #572EE5;
     font-family: 'Montserrat', sans-serif;
+    padding-top: 2%;
 }
 
 .cuadro{
@@ -219,8 +248,6 @@ li{
 
 #gifs div{
     margin-left: 1%;
-   
-    
 }
 
 #gif{
@@ -228,19 +255,30 @@ li{
     width: 25vw;
     height: 35vh;
     position: relative;
-    
+    margin-left: 1%;
 
 }
 
 .corazon{
+    z-index: 1;
     position: relative;
     bottom: 35vh;
     margin-left: 18vw;
+}
+
+.iconfav{
     content: url('../imagenes/icon-fav.svg');
 }
 
-.corazon:hover{
+.iconfav-hover{
     content: url('../imagenes/icon-fav-hover.svg');
+}
+
+.iconfavActive{
+    padding: 1.8%;
+    content: url("../imagenes/icon-fav-active.svg");
+    background-color: white;
+    border-radius: 20%;
 }
 
 

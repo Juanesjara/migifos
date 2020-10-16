@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body >
+
+<body>
     <div id="barraAzul"></div>
     <nav>
 
@@ -16,21 +18,34 @@
             <img src="imagenes/logo-desktop.svg" alt="logo" id="logo">
         </div>
         <ul id="lista">
-            <li id="modoNocturno"><h5 id="modo-nocturno" class="menu">MODO NOCTURNO</h5></li>
-            <li id="favoritos"><h5 id="favoritosh5"><a href="favoritos.html" class="menu">FAVORITOS</a></h5></li>
-            <li id="misGifos"><h5><a href="" class="menu">GIFOS</a></h5></li>
+            <li id="modoNocturno">
+                <h5 id="modo-nocturno" class="menu">MODO NOCTURNO</h5>
+            </li>
+            <li id="favoritos">
+                <h5 id="favoritosh5"><a href="favoritos.html" class="menu">FAVORITOS</a></h5>
+            </li>
+            <li id="misGifos">
+                <h5><a href="" class="menu">GIFOS</a></h5>
+            </li>
             <li><a href="">
-                <img src="imagenes/button-crear-gifo.svg" alt="boton crear" id="boton_crear">
-            </a></li>
+                    <img src="imagenes/button-crear-gifo.svg" alt="boton crear" id="boton_crear">
+                </a></li>
         </ul>
     </nav>
 
-    <h2 id="titulo">Inspírate, busca, guarda, y crea <p>los mejores <span>GIFOS</span></p></h2>
+    <h2 id="titulo">Inspírate, busca, guarda, y crea </br><div>los mejores <span>GIFOS</span></div></h2>
     <div id="portada">
         <img src="imagenes/ilustra_header.svg" alt="imagen lustra_header" class="imagenPortada">
     </div>
-    <input type="search" name="search" id="search" placeholder="Buscar GIFOS y mas">
-    <img src="imagenes/icon-search.svg" alt="icon search" id="iconSearch">
+    <div class="input">
+        <input type="search" name="search" id="search" placeholder="Buscar GIFOS y mas" autocomplete='off'>
+        <!--<img src="imagenes/icon-search.svg" alt="icon search" id="iconSearch">-->
+    </div>
+    <div id= 'sugerencia' class="sugerencias">
+        <p>hola</p>
+        <p>como</p>
+        <p>estas</p>
+    </div>
 
     <div id="lineaGris"></div>
 
@@ -48,10 +63,12 @@
         <div id="gifNoEncontrado">
         <img src="imagenes/icon-busqueda-sin-resultado.svg" alt="icon-busqueda-sin-resultado">
         <p>Intenta con otra búsqueda.</p>
-        </div>-->    
+        </div>-->
     </div>
     <div id="cajaVermas">
-        <div id="btnVermas"><h6>VER MÁS</h6 ></div> 
+        <div id="btnVermas">
+            <h6>VER MÁS</h6>
+        </div>
     </div>
 
     <div id="trending" class="trending">
@@ -67,11 +84,11 @@
         </div>
         <div id="gifPadre">
             <div id="gifs">
-                
-        </div>
+
+            </div>
         </div>
         <div id="flecha-Derecha" class="flecha">
-                    <img src="imagenes/button-slider-right.svg" alt="button-slider-right" id="flecha-D">
+            <img src="imagenes/button-slider-right.svg" alt="button-slider-right" id="flecha-D">
         </div>
     </div>
     <footer>
@@ -86,4 +103,5 @@
     <div id="barraAzul2"></div>
     <script src="script.js"></script>
 </body>
+
 </html>
