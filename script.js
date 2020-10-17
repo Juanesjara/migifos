@@ -99,7 +99,7 @@ function CarruselTrending() {
     let products = document.getElementsByClassName('product');
     let productAmount = products.length;
     let productAmountVisible = 3;
-    console.log(btn_adelante)
+   
 
     btn_adelante.onclick = function () {
         if (productListSteps > productAmount - productAmountVisible) {
@@ -150,7 +150,7 @@ lista[0].onclick = () => {
     modoNocturno()
 }
 
-console.log(elementoslista)
+
 
 function modoNocturno() {
 
@@ -232,7 +232,8 @@ async function searchFunction(offset) {
 let btnVerMas = document.getElementById('btnVermas')
 
 
-icon_search.onclick = () => {
+search.addEventListener('keydown', event => {
+    if (event.keyCode==13){
     lineaGris.style.display = 'inline-block'
     btnVerMas.style.display = 'flex'
     searchFunction(offset)
@@ -252,7 +253,8 @@ icon_search.onclick = () => {
                 imggif.style.width = '20vw'
             }
         })
-}
+    }
+})
 
 
 btnVerMas.onclick = () => {
@@ -276,16 +278,49 @@ btnVerMas.onclick = () => {
             }
         })
 }
-
+//prueba para borrar
+/*let sugerencias = document.getElementById('sugerencia')
 search.addEventListener('focus', function cuadroSugerencias(){
-    
-})
+    sugerencias.classList.add('sugerencias')
+    let sugerenciaPalabra = document.createElement('p')
+    sugerenciaPalabra.innerHTML = ''
+    sugerencias.appendChild(sugerenciaPalabra);
+})*/
 
 
-async function busquedad() {
-    let url = `api.giphy.com/v1/tags?api_key=${apiKey}&q=${search.value}&limit=3`;
+let traidaSugerencias = async function busquedad(search) {
+    let url = `https://api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${search.value}&limit=3`;
     let primero = await fetch(url);
     let segundo = await primero.json();
     let sugerencias = segundo.data
-
+    return sugerencias
 }
+console.log(traidaSugerencias())
+
+function autocompletar(traidaSugerencias){
+    let indexfocus = -1
+    search.addEventListener('input', function(){
+        search = this.value
+        if(!search) return false;
+
+        //crear la lista
+        const divlist = document.createElement('div')
+        divlist.setAttribute('id', this.id + '-lista-autocompletar')
+        divlist.setAttribute('class', 'lista-autocompletar-items')
+        this.parentNode.appendChild(divlist)
+
+        //validar el arreglo vs el input
+
+        if(traidaSugerencias.length == 0) return false;
+        traidaSugerencias.forEach(item =>{
+            console.log(item);
+        })
+    })
+
+    search.addEventListener('keydown', function(){
+
+    })
+}
+
+
+autocompletar(traidaSugerencias);
