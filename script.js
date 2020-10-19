@@ -18,6 +18,7 @@ let gifp = document.getElementById('gifp')
 let compartir = document.getElementById('compartir');
 let copyright = document.getElementById('copyright');
 let elementoslista = document.querySelectorAll('.menu');
+let favoritos = []//array de favoritos
 // aparicion de los gifs
 async function Trendings() {
     let url = 'https://api.giphy.com/v1/gifs/trending?api_key=' + apiKey;
@@ -26,7 +27,6 @@ async function Trendings() {
     let gifs = json.data;
     return gifs;
 }
-
 
 
 Trendings()
@@ -69,13 +69,13 @@ Trendings()
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
+                if(corazon.classList == 'iconfavActive'){
+                    favoritos.push(imggif)
+                    console.log(favoritos)
+                }
             })
 
-            /*function enviarFavStorage(corazon){
-                if(corazon.classList === 'iconfavactive'){
-                    sessionStorage.setItem
-                }
-            }*/ 
+            
 
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
@@ -99,7 +99,7 @@ function CarruselTrending() {
     let products = document.getElementsByClassName('product');
     let productAmount = products.length;
     let productAmountVisible = 3;
-   
+
 
     btn_adelante.onclick = function () {
         if (productListSteps > productAmount - productAmountVisible) {
@@ -218,11 +218,12 @@ let offset = 12;
 let lineaGris = document.getElementById('lineaGris');
 let icon_search = document.getElementById('iconSearch');
 let nombreBuscado = document.getElementById('nombreBuscado');
+let search = document.getElementById('search');
 async function searchFunction(offset) {
-    let search = document.getElementById('search').value;
-    nombreBuscado.innerHTML = search
-    console.log(search)
-    let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + search + '&limit=12' + '&offset=' + offset;
+    nombreBuscado.innerHTML = search.value
+
+    console.log(search.value)
+    let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + search.value + '&limit=12' + '&offset=' + offset;
     let response = await fetch(url);
     let json = await response.json();
     let gifs = json.data;
@@ -233,29 +234,31 @@ let btnVerMas = document.getElementById('btnVermas')
 
 
 search.addEventListener('keydown', event => {
-    if (event.keyCode==13){
-    lineaGris.style.display = 'inline-block'
-    btnVerMas.style.display = 'flex'
-    searchFunction(offset)
-        .then(imagen => {
-            console.log(imagen);
-            let cuadros = document.getElementById('cuadros')
-            let gif;
-            for (img of imagen) {
-                gif = document.createElement('figure');
-                gif.setAttribute('class', 'cuadro')
-                cuadros.appendChild(gif)
-                cuadros.style.paddingBottom = '15vh '
-                let imggif = document.createElement('img');
-                imggif.setAttribute('src', img.images.original.url)
-                gif.appendChild(imggif);
-                imggif.style.height = '20vh';
-                imggif.style.width = '20vw'
-            }
-        })
+    if (event.keyCode == 13) {
+        lineaGris.style.display = 'inline-block'
+        btnVerMas.style.display = 'flex'
+        searchFunction(offset)
+            .then(imagen => {
+                console.log(imagen);
+                let cuadros = document.getElementById('cuadros')
+                let gif;
+                cuadros.innerHTML=''
+                console.log(cuadros.childNodes)
+                
+                for (img of imagen) {
+                    gif = document.createElement('figure');
+                    gif.setAttribute('class', 'cuadro')
+                    cuadros.appendChild(gif)
+                    cuadros.style.paddingBottom = '15vh '
+                    let imggif = document.createElement('img');
+                    imggif.setAttribute('src', img.images.original.url)
+                    gif.appendChild(imggif);
+                    imggif.style.height = '20vh';
+                    imggif.style.width = '20vw'
+                }
+            })
     }
 })
-
 
 btnVerMas.onclick = () => {
     offset = offset + 12;
@@ -278,49 +281,48 @@ btnVerMas.onclick = () => {
             }
         })
 }
-//prueba para borrar
-/*let sugerencias = document.getElementById('sugerencia')
-search.addEventListener('focus', function cuadroSugerencias(){
-    sugerencias.classList.add('sugerencias')
-    let sugerenciaPalabra = document.createElement('p')
-    sugerenciaPalabra.innerHTML = ''
-    sugerencias.appendChild(sugerenciaPalabra);
-})*/
 
 
-let traidaSugerencias = async function busquedad(search) {
+let encontrados;
+search.addEventListener('input', async () => {
     let url = `https://api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${search.value}&limit=3`;
+    console.log(search.value)
     let primero = await fetch(url);
     let segundo = await primero.json();
-    let sugerencias = segundo.data
-    return sugerencias
-}
-console.log(traidaSugerencias())
+    encontrados = segundo.data
+    console.log(encontrados)
 
-function autocompletar(traidaSugerencias){
-    let indexfocus = -1
-    search.addEventListener('input', function(){
-        search = this.value
-        if(!search) return false;
-
-        //crear la lista
-        const divlist = document.createElement('div')
-        divlist.setAttribute('id', this.id + '-lista-autocompletar')
-        divlist.setAttribute('class', 'lista-autocompletar-items')
-        this.parentNode.appendChild(divlist)
-
-        //validar el arreglo vs el input
-
-        if(traidaSugerencias.length == 0) return false;
-        traidaSugerencias.forEach(item =>{
-            console.log(item);
+    
+    function autocompletar(){
+       
+        search.addEventListener('keyup', function(){
+            searchValue = this.value
+    
+            if(!searchValue) return false;
+            
+            //crear la lista
+            const divlist = document.createElement('div')
+            divlist.setAttribute('id', this.id + '-lista-autocompletar')
+            divlist.setAttribute('class', 'lista-autocompletar-items')
+            this.parentNode.appendChild(divlist)
+            
+          
+            if(encontrados.length == 0) return false;
+            divlist.innerHTML = ''
+            encontrados.forEach(item =>{  
+               let elementoslista = document.createElement('div')
+                elementoslista.innerHTML = `<strong>${item.name}</strong>`
+                divlist.appendChild(elementoslista)
+            })
+    
         })
-    })
-
-    search.addEventListener('keydown', function(){
-
-    })
-}
+    }
+    search.addEventListener('keyup', () => autocompletar())
+})
+console.log(encontrados)
 
 
-autocompletar(traidaSugerencias);
+
+
+
+
