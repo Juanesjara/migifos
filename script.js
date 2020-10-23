@@ -7,12 +7,12 @@ let modoNocturnoH5 = document.getElementById('modo-nocturno')
 let body = document.getElementsByTagName('body')
 let logo = document.getElementById('logo')
 let titulo = document.getElementById('titulo')
-let input = document.getElementById('search')
+
 let trending = document.getElementById('trendingT');
 let trendingp = document.getElementById('trendingp')
 let trendingGif = document.getElementById('trendinggif')
 let lista = document.querySelectorAll("li");
-let iconsearch = document.getElementById('iconSearch')
+
 let gifh2 = document.getElementById('gifh2')
 let gifp = document.getElementById('gifp')
 let compartir = document.getElementById('compartir');
@@ -69,12 +69,14 @@ Trendings()
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
+                sessionStorage.setItem('gif', imggif.getAttribute('src'))
+                /*
                 if(corazon.classList == 'iconfavActive'){
                     favoritos.push(imggif)
                     console.log(favoritos)
-                }
+                }*/
             })
-
+            
             
 
             imggif.addEventListener('mouseout', () => {
@@ -157,12 +159,12 @@ function modoNocturno() {
     if (dark == true) {
         body[0].style.backgroundColor = '#37383C'
         elementoslista.forEach(elementos => elementos.style.color = 'white');
-        modoNocturnoH5.innerHTML = 'MODO DIURNO';
+        //modoNocturnoH5.innerHTML = 'MODO DIURNO';
         lista.forEach(elementos => elementos.style.paddingLeft = '1.5vw');
         logo.setAttribute('src', 'imagenes/Logo-modo-noc.svg');
         titulo.style.color = 'white';
         input.style.backgroundColor = '#37383C';
-        iconsearch.setAttribute('src', 'imagenes/icon-search-modo-noct.svg');
+        input.style.backgroundImage = 'url( ../imagenes/icon-search-modo-noct.svg)'    ;
         input.style.color = 'white';
         input.style.borderColor = 'white';
         trendingp.style.color = 'white';
@@ -190,7 +192,7 @@ function modoNocturno() {
     logo.setAttribute('src', 'imagenes/Logo-desktop.svg');
     titulo.style.color = '#572EE5';
     input.style.backgroundColor = 'white';
-    iconsearch.setAttribute('src', 'imagenes/icon-search.svg');
+    search.style.backgroundImage = 'url (../imagenes/icon-search.svg)';
     input.style.color = 'black';
     trendingp.style.color = '#572EE5';
     trending.style.color = '#572EE5';
@@ -282,47 +284,58 @@ btnVerMas.onclick = () => {
         })
 }
 
+const divlist = document.createElement('div')
 
-let encontrados;
-search.addEventListener('input', async () => {
-    let url = `https://api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${search.value}&limit=3`;
-    console.log(search.value)
+const crearSugerencias = (encontrados, papa) => {
+    //crear la lista
+    divlist.setAttribute('id',   'lista-autocompletar')
+    divlist.setAttribute('class', 'lista-autocompletar-items')
+    console.log(papa);
+    papa.appendChild(divlist)
+
+    if(!encontrados) return false;
+
+    divlist.innerHTML = ''
+    encontrados.forEach(item =>{  
+        let elementoslista = document.createElement('div')
+        // este es el texto moradito? si noya vi que se llama 
+        elementoslista.innerHTML = `<strong>${item.name}</strong>`
+        divlist.appendChild(elementoslista)
+    })
+}
+
+const buscarAuto = async (event) => {
+    const searchValue = event.target.value
+    let url = `https://api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${searchValue}&limit=3`;
+
     let primero = await fetch(url);
     let segundo = await primero.json();
-    encontrados = segundo.data
-    console.log(encontrados)
+    const encontrados = segundo.data;
+    if(!searchValue) return false;
 
-    
-    function autocompletar(){
-       
-        search.addEventListener('keyup', function(){
-            searchValue = this.value
-    
-            if(!searchValue) return false;
-            
-            //crear la lista
-            const divlist = document.createElement('div')
-            divlist.setAttribute('id', this.id + '-lista-autocompletar')
-            divlist.setAttribute('class', 'lista-autocompletar-items')
-            this.parentNode.appendChild(divlist)
-            
-          
-            if(encontrados.length == 0) return false;
-            divlist.innerHTML = ''
-            encontrados.forEach(item =>{  
-               let elementoslista = document.createElement('div')
-                elementoslista.innerHTML = `<strong>${item.name}</strong>`
-                divlist.appendChild(elementoslista)
-            })
-    
-        })
-    }
-    search.addEventListener('keyup', () => autocompletar())
+    crearSugerencias(encontrados, event.target.parentNode);
+}
+search.addEventListener('input', buscarAuto)
+
+
+//responsive
+
+let burguer = document.getElementById('burguer');
+
+let btn_crear = document.getElementById('boton_crear');
+
+var mediaqueryList = window.matchMedia("(max-width: 500px)");
+let ul = document.getElementById('lista');
+
+let li = document.querySelectorAll('li');
+
+burguer.addEventListener('click', ()=>{
+   ul.classList.toggle('menu-desplegado')
+   elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
+   elementoslista.forEach(elementos => elementos.style.color = 'white');
 })
-console.log(encontrados)
 
-
-
-
-
+if(mediaqueryList.matches){
+    logo.setAttribute('src', 'imagenes/logo-mobile.svg')
+}
 

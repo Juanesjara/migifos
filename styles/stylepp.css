@@ -8,6 +8,10 @@
     bottom: 7px;
 }
 /*barra de navegacion*/
+#burguer{
+    display: none;
+}
+
 #logo{
     position: relative;
     left: 3vw;

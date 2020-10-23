@@ -1,0 +1,37 @@
+@media (max-width: 500px){
+
+    #boton_crear{
+        display: none;
+    }    
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-30vh);
+    }
+
+    .menu-desplegado{
+        position: absolute;
+        z-index: 99;
+        width: 91vw;
+        height: 92vh;
+        transform: translate(-49vw, 5vh);
+        background: rgba(87,46,229,0.90);
+    }
+
+    .items-menu{
+        color: white;
+        border-bottom: 1px solid white;
+    }
+
+    #burguer{
+        display: inline-block;
+        position: relative;
+        left: 85vw;
+        top: 2vh;
+    }
+
+    
+
+
+}
