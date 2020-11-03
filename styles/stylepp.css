@@ -37,6 +37,12 @@ li{
     font-family: 'Montserrat-bold', sans-serif;
 }
 
+.menuModoN{
+    color: white;
+    
+}
+
+
 .menu{
     text-decoration: none;
     color: #572EE5;
@@ -63,7 +69,6 @@ li{
 
 #titulo div{
     position: relative;
-   
     left: 7vw;
 }
 
@@ -87,6 +92,10 @@ li{
     left: 30vw;
 }
 
+.searchModoN{
+    background-image: url('../imagenes/icon-search-modo-noct.svg');
+}
+
 #search{
     position: relative;
     left: 4vw;
@@ -101,6 +110,7 @@ li{
     background-position: right;
 }
 
+
 strong{
    color: black; 
 }
@@ -108,8 +118,13 @@ strong{
 .lista-autocompletar-items{
     color: #ccc;
     position: absolute;
-    border: 1px solid #50E3C2;
+    border: 1px solid #572EE5;
     z-index: 99;
+    width: 38.8vw;
+    
+    
+    border-top: none;
+    top: 4.9vh;
 }
 
 .lista-autocompletar-items div{
@@ -117,6 +132,7 @@ strong{
     cursor: pointer;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4 ;
+    
 }
 
 .lista-autocompletar-items div:hover{
@@ -126,7 +142,7 @@ strong{
 .autocompletar-active{
     background-color: dodgerblue;
     color: #a1caff ;
-}
+} 
 
 .autocompletar-active strong{
     color: white;
@@ -279,13 +295,11 @@ strong{
     margin-left: 1%;
 }
 
-#gif{
-    border: 1px solid black;
+.gif{
+    
     width: 25vw;
     height: 35vh;
     position: relative;
-    margin-left: 1%;
-
 }
 
 .corazon{

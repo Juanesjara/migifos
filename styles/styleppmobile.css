@@ -31,7 +31,52 @@
         top: 2vh;
     }
 
-    
+    #titulo{
+        position: relative;
+        font-size: 5vw;
+        top: -25vw;
+        left: 27vw;
+        width: 50%;
+    }
 
+    #titulo div{
+        position: relative;
+        left: 0vw;
+       
+    }
+    
+    .imagenPortada{
+        width: 60vw;
+        position: relative;
+        right: 15vw;
+        bottom: 2vh;
+    }
+
+    .input{
+        width: 72vw;
+        left: 12vw;
+    }
+
+    #search{
+        width: 63vw;
+    }
+
+    #flecha-Izquierda{
+        display: none;
+    }
+
+    #flecha-Derecha{
+        display: none;
+    }
+
+    #gifPadre{
+      position: relative;
+      top: 7vh;
+      width: 78vw;
+    }
+
+    #gif{
+        width: 65vw;
+    }
 
 }

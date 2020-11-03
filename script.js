@@ -7,18 +7,29 @@ let modoNocturnoH5 = document.getElementById('modo-nocturno')
 let body = document.getElementsByTagName('body')
 let logo = document.getElementById('logo')
 let titulo = document.getElementById('titulo')
-
+let iconsearch = document.getElementById('iconSearch')
 let trending = document.getElementById('trendingT');
 let trendingp = document.getElementById('trendingp')
 let trendingGif = document.getElementById('trendinggif')
 let lista = document.querySelectorAll("li");
-
+let input = document.getElementById('search')
 let gifh2 = document.getElementById('gifh2')
 let gifp = document.getElementById('gifp')
 let compartir = document.getElementById('compartir');
 let copyright = document.getElementById('copyright');
 let elementoslista = document.querySelectorAll('.menu');
-let favoritos = []//array de favoritos
+let favoritos = [] //array de favoritos
+
+
+
+let dark = false;
+
+
+
+
+
+
+
 // aparicion de los gifs
 async function Trendings() {
     let url = 'https://api.giphy.com/v1/gifs/trending?api_key=' + apiKey;
@@ -39,8 +50,7 @@ Trendings()
             gifs.appendChild(gif);
             let imggif = document.createElement('img');
             imggif.setAttribute('src', img.images.original.url)
-            imggif.style.width = '25vw';
-            imggif.style.height = '35vh';
+            imggif.classList.add('gif')
             gif.appendChild(imggif);
             let corazon = document.createElement('img')
 
@@ -76,8 +86,8 @@ Trendings()
                     console.log(favoritos)
                 }*/
             })
-            
-            
+
+
 
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
@@ -145,26 +155,23 @@ btn_atras.addEventListener('mouseout', () => {
 
 // modo nocturno
 
-let dark = false;
 
 lista[0].onclick = () => {
     dark = !dark
     modoNocturno()
 }
 
-
-
 function modoNocturno() {
 
     if (dark == true) {
         body[0].style.backgroundColor = '#37383C'
         elementoslista.forEach(elementos => elementos.style.color = 'white');
-        //modoNocturnoH5.innerHTML = 'MODO DIURNO';
+        modoNocturnoH5.innerHTML = 'MODO DIURNO';
         lista.forEach(elementos => elementos.style.paddingLeft = '1.5vw');
         logo.setAttribute('src', 'imagenes/Logo-modo-noc.svg');
         titulo.style.color = 'white';
         input.style.backgroundColor = '#37383C';
-        input.style.backgroundImage = 'url( ../imagenes/icon-search-modo-noct.svg)'    ;
+        input.style.backgroundImage = 'url( ../imagenes/icon-search-modo-noct.svg)';
         input.style.color = 'white';
         input.style.borderColor = 'white';
         trendingp.style.color = 'white';
@@ -192,7 +199,7 @@ function modoNocturno() {
     logo.setAttribute('src', 'imagenes/Logo-desktop.svg');
     titulo.style.color = '#572EE5';
     input.style.backgroundColor = 'white';
-    search.style.backgroundImage = 'url (../imagenes/icon-search.svg)';
+    input.style.backgroundImage = 'url( ../imagenes/icon-search.svg)'
     input.style.color = 'black';
     trendingp.style.color = '#572EE5';
     trending.style.color = '#572EE5';
@@ -211,6 +218,10 @@ function modoNocturno() {
     });
 
 }
+
+
+
+
 
 // busquedad de gifs
 
@@ -244,9 +255,9 @@ search.addEventListener('keydown', event => {
                 console.log(imagen);
                 let cuadros = document.getElementById('cuadros')
                 let gif;
-                cuadros.innerHTML=''
+                cuadros.innerHTML = ''
                 console.log(cuadros.childNodes)
-                
+
                 for (img of imagen) {
                     gif = document.createElement('figure');
                     gif.setAttribute('class', 'cuadro')
@@ -288,18 +299,43 @@ const divlist = document.createElement('div')
 
 const crearSugerencias = (encontrados, papa) => {
     //crear la lista
-    divlist.setAttribute('id',   'lista-autocompletar')
+    divlist.setAttribute('id', 'lista-autocompletar')
     divlist.setAttribute('class', 'lista-autocompletar-items')
     console.log(papa);
     papa.appendChild(divlist)
 
-    if(!encontrados) return false;
+    if (!encontrados) return false;
 
     divlist.innerHTML = ''
-    encontrados.forEach(item =>{  
+    encontrados.forEach(item => {
         let elementoslista = document.createElement('div')
-        // este es el texto moradito? si noya vi que se llama 
         elementoslista.innerHTML = `<strong>${item.name}</strong>`
+        elementoslista.addEventListener('click', function () {
+            console.log(elementoslista)
+            search.value = this.innerText
+            lineaGris.style.display = 'inline-block'
+            btnVerMas.style.display = 'flex'
+            searchFunction(offset)
+                .then(imagen => {
+                    console.log(imagen);
+                    let cuadros = document.getElementById('cuadros')
+                    let gif;
+                    cuadros.innerHTML = ''
+                    console.log(cuadros.childNodes)
+
+                    for (img of imagen) {
+                        gif = document.createElement('figure');
+                        gif.setAttribute('class', 'cuadro')
+                        cuadros.appendChild(gif)
+                        cuadros.style.paddingBottom = '15vh '
+                        let imggif = document.createElement('img');
+                        imggif.setAttribute('src', img.images.original.url)
+                        gif.appendChild(imggif);
+                        imggif.style.height = '20vh';
+                        imggif.style.width = '20vw'
+                    }
+                })
+        })
         divlist.appendChild(elementoslista)
     })
 }
@@ -311,7 +347,7 @@ const buscarAuto = async (event) => {
     let primero = await fetch(url);
     let segundo = await primero.json();
     const encontrados = segundo.data;
-    if(!searchValue) return false;
+    if (!searchValue) return false;
 
     crearSugerencias(encontrados, event.target.parentNode);
 }
@@ -329,13 +365,12 @@ let ul = document.getElementById('lista');
 
 let li = document.querySelectorAll('li');
 
-burguer.addEventListener('click', ()=>{
-   ul.classList.toggle('menu-desplegado')
-   elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
-   elementoslista.forEach(elementos => elementos.style.color = 'white');
+burguer.addEventListener('click', () => {
+    ul.classList.toggle('menu-desplegado')
+    elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
+    elementoslista.forEach(elementos => elementos.style.color = 'white');
 })
 
-if(mediaqueryList.matches){
+if (mediaqueryList.matches) {
     logo.setAttribute('src', 'imagenes/logo-mobile.svg')
 }
-
