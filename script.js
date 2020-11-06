@@ -53,25 +53,56 @@ Trendings()
             imggif.classList.add('gif')
             gif.appendChild(imggif);
             let corazon = document.createElement('img')
+            let descarga = document.createElement('img')
+            let max = document.createElement('img')
 
             //mouseover 
             // carrusel de gifs
             gif.addEventListener('mouseover', () => {
-
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
                 gif.appendChild(corazon);
-                corazon.classList.add('corazon')
+                gif.appendChild(descarga)
+                gif.appendChild(max)
+                descarga.style.display= 'block'
+                descarga.classList.add('iconDownload')
                 corazon.style.display = 'block'
                 corazon.classList.add('iconfav')
+                max.style.display = 'block'
+                max.classList.add('iconMax')
             }, false)
 
-            corazon.addEventListener('mouseover', function hoverfav() {
+            max.addEventListener('mouseover', function() {
+                max.classList.toggle('iconMax-hover');
+                max.classList.toggle('iconMax');
+            })
+            
+            max.addEventListener('mouseout', function() {
+                max.classList.toggle('iconMax');
+                max.classList.toggle('iconMax-hover');
+            })
+
+            max.addEventListener('click', function(){
+                console.log(img)
+            })
+
+            descarga.addEventListener('mouseover', function() {
+                descarga.classList.toggle('iconDownload-hover');
+                descarga.classList.toggle('iconDownload');
+            })
+            
+            descarga.addEventListener('mouseout', function() {
+                descarga.classList.toggle('iconDownload');
+                descarga.classList.toggle('iconDownload-hover');
+            })
+
+            corazon.addEventListener('mouseover', function() {
                 corazon.classList.toggle('iconfav-hover');
                 corazon.classList.toggle('iconfav');
             })
 
-            corazon.addEventListener('mouseout', function unhoverfav() {
+
+            corazon.addEventListener('mouseout', function() {
                 corazon.classList.toggle('iconfav');
                 corazon.classList.toggle('iconfav-hover');
             })
@@ -93,6 +124,8 @@ Trendings()
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
                 corazon.style.display = 'none'
+                descarga.style.display='none'
+                max.style.display='none'
             })
         }
     });
@@ -102,6 +135,9 @@ Trendings()
 (function () {
     CarruselTrending();
 })();
+
+
+
 
 
 

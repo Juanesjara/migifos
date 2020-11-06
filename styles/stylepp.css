@@ -302,15 +302,37 @@ strong{
     position: relative;
 }
 
-.corazon{
+.iconMax{
+    content: url(../imagenes/icon-max-normal.svg);
     z-index: 1;
     position: relative;
-    bottom: 35vh;
+    bottom: 44.8vh;
+    margin-left: 21vw;
+}
+
+.iconMax-hover{
+    content: url(../imagenes/icon-max-hover.svg);
+}
+
+.iconDownload{
+    content: url('../imagenes/icon-download.svg');
+    z-index: 1;
+    position: relative;
+    bottom: 40vh;
     margin-left: 18vw;
 }
 
+.iconDownload-hover{
+    content: url('../imagenes/icon-download-hover.svg');
+}
+
+
 .iconfav{
     content: url('../imagenes/icon-fav.svg');
+    z-index: 1;
+    position: relative;
+    bottom: 35vh;
+    margin-left: 15vw;
 }
 
 .iconfav-hover{
