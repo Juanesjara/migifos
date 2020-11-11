@@ -50,6 +50,10 @@ li{
 
 /*cuadros*/
 
+.display-none{
+    display: none;
+}
+
 #cuadros{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

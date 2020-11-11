@@ -39,7 +39,7 @@ async function Trendings() {
     return gifs;
 }
 
-
+let gifsfav = []
 Trendings()
     .then(imagen => {
         console.log(imagen);
@@ -49,7 +49,9 @@ Trendings()
             gif.classList.add('product')
             gifs.appendChild(gif);
             let imggif = document.createElement('img');
-            imggif.setAttribute('src', img.images.original.url)
+            let urlGif = img.images.original.url
+            imggif.setAttribute('data', img )
+            imggif.setAttribute('src', urlGif)
             imggif.classList.add('gif')
             gif.appendChild(imggif);
             let corazon = document.createElement('img')
@@ -96,6 +98,10 @@ Trendings()
                 descarga.classList.toggle('iconDownload-hover');
             })
 
+            descarga.addEventListener('click', () =>{
+                return descargarMiGifo(imggif)
+            }, false)
+
             corazon.addEventListener('mouseover', function() {
                 corazon.classList.toggle('iconfav-hover');
                 corazon.classList.toggle('iconfav');
@@ -107,15 +113,20 @@ Trendings()
                 corazon.classList.toggle('iconfav-hover');
             })
 
+    
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
-                sessionStorage.setItem('gif', imggif.getAttribute('src'))
+                let urlGifFav = imggif.getAttribute('src')
+                gifsfav.push(urlGifFav)
+                console.log(gifsfav)
+                //sessionStorage.setItem('gif', imggif.getAttribute('src'))
                 /*
                 if(corazon.classList == 'iconfavActive'){
                     favoritos.push(imggif)
                     console.log(favoritos)
                 }*/
+                sessionStorage.setItem('gifsFav', gifsfav)
             })
 
 
@@ -136,6 +147,16 @@ Trendings()
     CarruselTrending();
 })();
 
+async function descargarMiGifo(imggif) {
+
+    let a = document.createElement('a');
+    let response = await fetch(imggif.src);
+    let file = await response.blob();
+    a.download = 'MiNuevoGif.gif';
+    a.href = window.URL.createObjectURL(file);
+    a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
+    a.click();
+};
 
 
 
