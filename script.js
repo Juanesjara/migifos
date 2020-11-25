@@ -20,15 +20,7 @@ let copyright = document.getElementById('copyright');
 let elementoslista = document.querySelectorAll('.menu');
 let favoritos = [] //array de favoritos
 
-
-
 let dark = false;
-
-
-
-
-
-
 
 // aparicion de los gifs
 async function Trendings() {
@@ -50,7 +42,8 @@ Trendings()
             gifs.appendChild(gif);
             let imggif = document.createElement('img');
             let urlGif = img.images.original.url
-            imggif.setAttribute('data', img )
+            imggif.setAttribute('data', img.title) // data titulo
+            imggif.setAttribute('data2', img.username) // data username
             imggif.setAttribute('src', urlGif)
             imggif.classList.add('gif')
             gif.appendChild(imggif);
@@ -58,110 +51,114 @@ Trendings()
             let descarga = document.createElement('img')
             let max = document.createElement('img')
 
-            //mouseover 
-            // carrusel de gifs
+            //mouseover de los gifs
+            let padreinconos = document.createElement('div')
+            gif.appendChild(padreinconos)
+            padreinconos.classList.add('padreIconos')
+
             gif.addEventListener('mouseover', () => {
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
-                gif.appendChild(corazon);
-                gif.appendChild(descarga)
-                gif.appendChild(max)
-                descarga.style.display= 'block'
+                padreinconos.appendChild(corazon);
+                padreinconos.appendChild(descarga)
+                padreinconos.appendChild(max)
+                descarga.style.display = 'block'
                 descarga.classList.add('iconDownload')
                 corazon.style.display = 'block'
                 corazon.classList.add('iconfav')
                 max.style.display = 'block'
                 max.classList.add('iconMax')
+
             }, false)
 
-            max.addEventListener('mouseover', function() {
+            max.addEventListener('mouseover', function () {
                 max.classList.toggle('iconMax-hover');
                 max.classList.toggle('iconMax');
             })
-            
-            max.addEventListener('mouseout', function() {
+
+            max.addEventListener('mouseout', function () {
                 max.classList.toggle('iconMax');
                 max.classList.toggle('iconMax-hover');
             })
 
-            max.addEventListener('click', function(){
-                console.log(img)
+            max.addEventListener('click', function () {
+                console.log(imggif)
+                let srcdelgif = imggif.src
+                let userdelgif = imggif.getAttribute('data2')
+                let namedelgif = imggif.getAttribute('data')
+                ventana(srcdelgif, userdelgif, namedelgif)
             })
 
-            descarga.addEventListener('mouseover', function() {
+
+            descarga.addEventListener('mouseover', function () {
                 descarga.classList.toggle('iconDownload-hover');
                 descarga.classList.toggle('iconDownload');
             })
-            
-            descarga.addEventListener('mouseout', function() {
+            descarga.addEventListener('mouseout', function () {
                 descarga.classList.toggle('iconDownload');
                 descarga.classList.toggle('iconDownload-hover');
             })
-
-            descarga.addEventListener('click', () =>{
+            descarga.addEventListener('click', () => {
                 return descargarMiGifo(imggif)
             }, false)
 
-            corazon.addEventListener('mouseover', function() {
+            corazon.addEventListener('mouseover', function () {
                 corazon.classList.toggle('iconfav-hover');
                 corazon.classList.toggle('iconfav');
             })
-
-
-            corazon.addEventListener('mouseout', function() {
+            corazon.addEventListener('mouseout', function () {
                 corazon.classList.toggle('iconfav');
                 corazon.classList.toggle('iconfav-hover');
             })
-
-    
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
                 let urlGifFav = imggif.getAttribute('src')
                 gifsfav.push(urlGifFav)
                 console.log(gifsfav)
-                //sessionStorage.setItem('gif', imggif.getAttribute('src'))
-                /*
-                if(corazon.classList == 'iconfavActive'){
-                    favoritos.push(imggif)
-                    console.log(favoritos)
-                }*/
                 sessionStorage.setItem('gifsFav', gifsfav)
             })
-
-
-
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
                 corazon.style.display = 'none'
-                descarga.style.display='none'
-                max.style.display='none'
+                descarga.style.display = 'none'
+                max.style.display = 'none'
             })
         }
     });
+
+function ventana(imggif, user, name) {
+    let gifmaxhtml = document.getElementById('gifMax')
+    gifmaxhtml.classList.add('gifmax')
+    gifmaxhtml.classList.remove('none')
+    let body = document.querySelectorAll('body')[0]
+    body.classList.add('overflow')
+    let cuadrogif = document.getElementById('gif-en-max')
+    cuadrogif.setAttribute('src', imggif)
+    let userhtml = document.getElementById('User')
+    userhtml.innerHTML = user
+    let namehtml = document.getElementById('titulo-en-max')
+    namehtml.innerHTML = name
+}
 
 
 
 (function () {
     CarruselTrending();
 })();
-
+//funcion de descarga
 async function descargarMiGifo(imggif) {
 
     let a = document.createElement('a');
     let response = await fetch(imggif.src);
     let file = await response.blob();
-    a.download = 'MiNuevoGif.gif';
+    a.download = imggif.getAttribute('data');
     a.href = window.URL.createObjectURL(file);
     a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
     a.click();
 };
-
-
-
-
-
+// carrusel de gifs
 function CarruselTrending() {
     let productList = document.getElementById('gifs');
     let productListSteps = 0;
@@ -209,10 +206,7 @@ btn_atras.addEventListener('mouseout', () => {
     flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
 });
 
-
 // modo nocturno
-
-
 lista[0].onclick = () => {
     dark = !dark
     modoNocturno()
@@ -276,15 +270,8 @@ function modoNocturno() {
 
 }
 
-
-
-
-
 // busquedad de gifs
-
-
 let offset = 12;
-
 let lineaGris = document.getElementById('lineaGris');
 let icon_search = document.getElementById('iconSearch');
 let nombreBuscado = document.getElementById('nombreBuscado');
@@ -307,6 +294,7 @@ search.addEventListener('keydown', event => {
     if (event.keyCode == 13) {
         lineaGris.style.display = 'inline-block'
         btnVerMas.style.display = 'flex'
+        cerrarLista()
         searchFunction(offset)
             .then(imagen => {
                 console.log(imagen);
@@ -356,7 +344,6 @@ const divlist = document.createElement('div')
 
 const crearSugerencias = (encontrados, papa) => {
     //crear la lista
-    divlist.setAttribute('id', 'lista-autocompletar')
     divlist.setAttribute('class', 'lista-autocompletar-items')
     console.log(papa);
     papa.appendChild(divlist)
@@ -368,6 +355,7 @@ const crearSugerencias = (encontrados, papa) => {
         let elementoslista = document.createElement('div')
         elementoslista.innerHTML = `<strong>${item.name}</strong>`
         elementoslista.addEventListener('click', function () {
+            cerrarLista()
             console.log(elementoslista)
             search.value = this.innerText
             lineaGris.style.display = 'inline-block'
@@ -394,6 +382,13 @@ const crearSugerencias = (encontrados, papa) => {
                 })
         })
         divlist.appendChild(elementoslista)
+    })
+}
+
+function cerrarLista() {
+    const items = document.querySelectorAll('.lista-autocompletar-items')
+    items.forEach(item => {
+        item.parentNode.removeChild
     })
 }
 

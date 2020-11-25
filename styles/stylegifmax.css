@@ -9,7 +9,7 @@
 
 
 
-#gifs{
+#gifs-en-max{
     display: flex;
     position: relative;
     top: 10vh;
@@ -21,7 +21,7 @@
    margin: 1%;
 }
 
-#gif{
+#gif-en-max{
     border: 1px solid black;
     width: 57%;
     height: 60vh;

@@ -296,43 +296,116 @@ strong{
 }
 
 .gif{
-    
     width: 25vw;
     height: 35vh;
     position: relative;
+}
+
+.padreIconos{
+    bottom: 29.5vh;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 13vw;
+}
+
+.padreIconos img{
+    margin-left: 1vw;
 }
 
 .iconMax{
     content: url(../imagenes/icon-max-normal.svg);
     z-index: 1;
     position: relative;
-    bottom: 44.8vh;
-    margin-left: 21vw;
+   
 }
-
 .iconMax-hover{
     content: url(../imagenes/icon-max-hover.svg);
+}
+
+.none{
+    display: none;
+}
+
+
+#x{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    right: 15%;
+    top: 8vh;
+}
+
+#gifs-en-max{
+    display: flex;
+    position: relative;
+    top: 10vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#gif-en-max{
+    border: 1px solid black;
+    width: 57vw;
+    height: 60vh;
+}
+
+#info{
+    position: relative;
+    left: 5vw;
+    font-size: 1em;
+}
+
+#User{
+    font-size: 1.3em;
+}
+
+#pie{
+    position: relative;
+    top: 8vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.gifmax{
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99;
+    overflow-x: hidden;
+    top: 0;
+}
+
+.iconos{
+    position: relative;
+    top: 5vh;
+}
+
+.iconos img{
+    margin-left: 15px;
+}
+
+.overflow{
+    overflow: hidden;
 }
 
 .iconDownload{
     content: url('../imagenes/icon-download.svg');
     z-index: 1;
     position: relative;
-    bottom: 40vh;
-    margin-left: 18vw;
-}
 
+   
+    display: inline-block;
+}
 .iconDownload-hover{
     content: url('../imagenes/icon-download-hover.svg');
 }
-
-
 .iconfav{
     content: url('../imagenes/icon-fav.svg');
     z-index: 1;
     position: relative;
-    bottom: 35vh;
-    margin-left: 15vw;
 }
 
 .iconfav-hover{
