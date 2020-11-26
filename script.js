@@ -50,11 +50,19 @@ Trendings()
             let corazon = document.createElement('img')
             let descarga = document.createElement('img')
             let max = document.createElement('img')
-
-            //mouseover de los gifs
+            let user = document.createElement('p')
+            let name = document.createElement('h3')
+            let cajaUserName = document.createElement('div')
+            user.innerHTML = imggif.getAttribute('data2') 
+            name.innerHTML = imggif.getAttribute('data')
+            cajaUserName.appendChild(user)
+            cajaUserName.appendChild(name)
+            gif.appendChild(cajaUserName)
             let padreinconos = document.createElement('div')
             gif.appendChild(padreinconos)
             padreinconos.classList.add('padreIconos')
+
+            //mouseover de los gifs
 
             gif.addEventListener('mouseover', () => {
                 gif.style.backgroundColor = '#572EE5'
@@ -62,6 +70,7 @@ Trendings()
                 padreinconos.appendChild(corazon);
                 padreinconos.appendChild(descarga)
                 padreinconos.appendChild(max)
+                cajaUserName.classList.add('padreUserName')
                 descarga.style.display = 'block'
                 descarga.classList.add('iconDownload')
                 corazon.style.display = 'block'
@@ -124,9 +133,12 @@ Trendings()
                 corazon.style.display = 'none'
                 descarga.style.display = 'none'
                 max.style.display = 'none'
+                cajaUserName.classList.remove('padreUserName')
             })
         }
     });
+
+
 
 function ventana(imggif, user, name) {
     let gifmaxhtml = document.getElementById('gifMax')
@@ -147,6 +159,7 @@ function ventana(imggif, user, name) {
 (function () {
     CarruselTrending();
 })();
+
 //funcion de descarga
 async function descargarMiGifo(imggif) {
 
@@ -288,7 +301,9 @@ async function searchFunction(offset) {
 }
 
 let btnVerMas = document.getElementById('btnVermas')
-
+if(search.value === '' ){
+    cerrarLista();
+}
 
 search.addEventListener('keydown', event => {
     if (event.keyCode == 13) {
@@ -345,7 +360,7 @@ const divlist = document.createElement('div')
 const crearSugerencias = (encontrados, papa) => {
     //crear la lista
     divlist.setAttribute('class', 'lista-autocompletar-items')
-    console.log(papa);
+    
     papa.appendChild(divlist)
 
     if (!encontrados) return false;
@@ -385,11 +400,15 @@ const crearSugerencias = (encontrados, papa) => {
     })
 }
 
+
+
 function cerrarLista() {
     const items = document.querySelectorAll('.lista-autocompletar-items')
     items.forEach(item => {
         item.parentNode.removeChild
     })
+    items.innerHTML = ''
+    console.log('si funcione')
 }
 
 const buscarAuto = async (event) => {

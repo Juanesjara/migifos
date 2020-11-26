@@ -301,6 +301,21 @@ strong{
     position: relative;
 }
 
+.padreUserName{
+    bottom: 1vh;
+    position: absolute;
+    color: white;
+    font-weight: 400;
+}
+.padreUserName p{
+    position: relative;
+    padding-right: 25vw;
+}
+
+.padreUserName h3{
+    margin-top: 35px;
+}
+
 .padreIconos{
     bottom: 29.5vh;
     position: absolute;
