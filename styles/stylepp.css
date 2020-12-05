@@ -189,6 +189,7 @@ strong{
     color: #572EE5;
     font-family: 'Montserrat', sans-serif;
     padding-top: 2%;
+    text-transform: capitalize;
 }
 
 .cuadro{
@@ -306,22 +307,26 @@ strong{
     position: absolute;
     color: white;
     font-weight: 400;
+    width: 30%;
+    top: 7rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
 }
 .padreUserName p{
     position: relative;
-    padding-right: 25vw;
+    
 }
 
-.padreUserName h3{
-    margin-top: 35px;
-}
+
 
 .padreIconos{
-    bottom: 29.5vh;
+
     position: absolute;
     display: flex;
     justify-content: flex-end;
     padding-left: 13vw;
+    top: 1rem;
 }
 
 .padreIconos img{

@@ -301,9 +301,12 @@ async function searchFunction(offset) {
 }
 
 let btnVerMas = document.getElementById('btnVermas')
+
 if(search.value === '' ){
-    cerrarLista();
+   // cerrarLista();
 }
+
+ 
 
 search.addEventListener('keydown', event => {
     if (event.keyCode == 13) {
@@ -326,6 +329,7 @@ search.addEventListener('keydown', event => {
                     let imggif = document.createElement('img');
                     imggif.setAttribute('src', img.images.original.url)
                     gif.appendChild(imggif);
+                    imggif.style.paddingBottom = '2vh'
                     imggif.style.height = '20vh';
                     imggif.style.width = '20vw'
                 }
@@ -371,7 +375,7 @@ const crearSugerencias = (encontrados, papa) => {
         elementoslista.innerHTML = `<strong>${item.name}</strong>`
         elementoslista.addEventListener('click', function () {
             cerrarLista()
-            console.log(elementoslista)
+            
             search.value = this.innerText
             lineaGris.style.display = 'inline-block'
             btnVerMas.style.display = 'flex'
@@ -404,11 +408,9 @@ const crearSugerencias = (encontrados, papa) => {
 
 function cerrarLista() {
     const items = document.querySelectorAll('.lista-autocompletar-items')
-    items.forEach(item => {
-        item.parentNode.removeChild
-    })
-    items.innerHTML = ''
-    console.log('si funcione')
+    console.log(items.length)
+   
+    items[0].innerHTML = ''
 }
 
 const buscarAuto = async (event) => {
