@@ -183,21 +183,29 @@ function CarruselTrending() {
     btn_adelante.onclick = function () {
         if (productListSteps > productAmount - productAmountVisible) {
             productListSteps++;
-            moveProductList();
+            moveProductList(-25.8*3);
         }
     }
 
     btn_atras.onclick = function () {
         if (productListSteps > 0) {
             productListSteps--;
-            moveProductList();
+            moveProductList(-25.8*3);
         }
     }
 
-    function moveProductList() {
-        productList.style.transform = `translateX(${(-25.8*3)* productListSteps}vw)`;
+    gifs.addEventListener('touchmove',() => {
+        productListSteps++;
+        moveProductList(-5);
+        console.log('me muevo')
+    })
+    
+    function moveProductList(valorvw) {
+        productList.style.transform = `translateX(${(valorvw)* productListSteps}vw)`;
     }
 }
+
+
 
 //flechas carrusel
 let flechaD = document.getElementById('flecha-D')
@@ -305,8 +313,7 @@ let btnVerMas = document.getElementById('btnVermas')
 if(search.value === '' ){
    // cerrarLista();
 }
-
- 
+// ------------------------busqueda de gifs con enter
 
 search.addEventListener('keydown', event => {
     if (event.keyCode == 13) {
@@ -322,7 +329,7 @@ search.addEventListener('keydown', event => {
                 console.log(cuadros.childNodes)
 
                 for (img of imagen) {
-                    gif = document.createElement('figure');
+                    gif = document.createElement('div');
                     gif.setAttribute('class', 'cuadro')
                     cuadros.appendChild(gif)
                     cuadros.style.paddingBottom = '15vh '
@@ -330,8 +337,107 @@ search.addEventListener('keydown', event => {
                     imggif.setAttribute('src', img.images.original.url)
                     gif.appendChild(imggif);
                     imggif.style.paddingBottom = '2vh'
-                    imggif.style.height = '20vh';
-                    imggif.style.width = '20vw'
+                    imggif.style.height = '29vh';
+                    imggif.style.width = '23vw'
+                    let urlGif = img.images.original.url
+                    imggif.setAttribute('data', img.title) // data titulo
+            imggif.setAttribute('data2', img.username) // data username
+            imggif.setAttribute('src', urlGif)
+            imggif.classList.add('gif')
+            gif.appendChild(imggif);
+            let corazon = document.createElement('img')
+            let descarga = document.createElement('img')
+            let max = document.createElement('img')
+            let user = document.createElement('p')
+            let name = document.createElement('h3')
+            let cajaUserName = document.createElement('div')
+            user.innerHTML = imggif.getAttribute('data2') 
+            name.innerHTML = imggif.getAttribute('data')
+            cajaUserName.appendChild(user)
+            cajaUserName.appendChild(name)
+            cajaUserName.classList.add('display-none')
+            gif.appendChild(cajaUserName)
+            let padreinconos = document.createElement('div')
+            gif.appendChild(padreinconos)
+            padreinconos.classList.add('padreIconos')
+
+            //mouseover de los gifs
+
+            gif.addEventListener('mouseover', () => {
+                gif.style.backgroundColor = '#572EE5'
+              
+                imggif.style.opacity = '0.5'
+                padreinconos.appendChild(corazon);
+                padreinconos.appendChild(descarga)
+                padreinconos.appendChild(max)
+                cajaUserName.classList.add('padreUserNameb')
+                cajaUserName.classList.remove('display-none')
+                descarga.style.display = 'block'
+                descarga.classList.add('iconDownload')
+                corazon.style.display = 'block'
+                corazon.classList.add('iconfav')
+                max.style.display = 'block'
+                max.classList.add('iconMax')
+
+            }, false)
+
+            max.addEventListener('mouseover', function () {
+                max.classList.toggle('iconMax-hover');
+                max.classList.toggle('iconMax');
+            })
+
+            max.addEventListener('mouseout', function () {
+                max.classList.toggle('iconMax');
+                max.classList.toggle('iconMax-hover');
+            })
+
+            max.addEventListener('click', function () {
+                console.log(imggif)
+                let srcdelgif = imggif.src
+                let userdelgif = imggif.getAttribute('data2')
+                let namedelgif = imggif.getAttribute('data')
+                ventana(srcdelgif, userdelgif, namedelgif)
+            })
+
+
+            descarga.addEventListener('mouseover', function () {
+                descarga.classList.toggle('iconDownload-hover');
+                descarga.classList.toggle('iconDownload');
+            })
+            descarga.addEventListener('mouseout', function () {
+                descarga.classList.toggle('iconDownload');
+                descarga.classList.toggle('iconDownload-hover');
+            })
+            descarga.addEventListener('click', () => {
+                return descargarMiGifo(imggif)
+            }, false)
+
+            corazon.addEventListener('mouseover', function () {
+                corazon.classList.toggle('iconfav-hover');
+                corazon.classList.toggle('iconfav');
+            })
+            corazon.addEventListener('mouseout', function () {
+                corazon.classList.toggle('iconfav');
+                corazon.classList.toggle('iconfav-hover');
+            })
+            corazon.addEventListener('click', function favgifs(event) {
+                event.target.classList.toggle('iconfavActive');
+                event.target.classList.toggle('iconfav');
+                let urlGifFav = imggif.getAttribute('src')
+                gifsfav.push(urlGifFav)
+                console.log(gifsfav)
+                sessionStorage.setItem('gifsFav', gifsfav)
+            })
+            imggif.addEventListener('mouseout', () => {
+                gif.style.backgroundColor = 'transparent'
+                imggif.style.opacity = '1'
+                corazon.style.display = 'none'
+                descarga.style.display = 'none'
+                max.style.display = 'none'
+                cajaUserName.classList.remove('padreUserNameb')
+                cajaUserName.classList.add('display-none')
+            })
+                    
                 }
             })
     }

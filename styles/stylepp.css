@@ -194,13 +194,14 @@ strong{
 
 .cuadro{
     margin: 1%;
-    height: 20vh;
-    width: 20vw;
-    
     position: relative;
     top: 10vh;
-   
+    height: 29vh;
 }
+.cuadro:hover{
+    background-color: #572EE5 ;
+}
+
 
 #cuadros{
     display: grid;
@@ -302,6 +303,7 @@ strong{
     position: relative;
 }
 
+
 .padreUserName{
     bottom: 1vh;
     position: absolute;
@@ -315,6 +317,23 @@ strong{
 }
 .padreUserName p{
     position: relative;
+    
+}
+
+.display-none{
+    display: none;
+}
+
+.padreUserNameb{
+    bottom: 3vh;
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    width: 30%;
+    top: 7rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
     
 }
 
