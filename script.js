@@ -178,8 +178,8 @@ function CarruselTrending() {
     let products = document.getElementsByClassName('product');
     let productAmount = products.length;
     let productAmountVisible = 3;
-
-
+    let pagex = 0;
+    
     btn_adelante.onclick = function () {
         if (productListSteps > productAmount - productAmountVisible) {
             productListSteps++;
@@ -193,11 +193,19 @@ function CarruselTrending() {
             moveProductList(-25.8*3);
         }
     }
-
-    gifs.addEventListener('touchmove',() => {
+    
+    gifs.addEventListener('touchmove',(e) => {
+        console.log('a ' + e.targetTouches[0].pageX)
+        console.log('b ' + pagex)
+        let offset = pagex - e.targetTouches[0].pageX
+        console.log('soy el offset ' + offset)
         productListSteps++;
-        moveProductList(-5);
-        console.log('me muevo')
+        if(offset > 0){
+            moveProductList(-5);
+        }else{
+            moveProductList(1);
+        }
+        pagex = e.targetTouches[0].pageX;
     })
     
     function moveProductList(valorvw) {
