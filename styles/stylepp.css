@@ -330,13 +330,16 @@ strong{
     color: white;
     font-weight: 400;
     width: 30%;
-    top: 7rem;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    
+    top: 4rem;
 }
 
+.padreUserNameb h3{
+    width: 20vw;
+}
+
+.padreUserNameb p{
+    margin-top: 40%;
+}
 
 
 .padreIconos{
@@ -346,6 +349,10 @@ strong{
     justify-content: flex-end;
     padding-left: 13vw;
     top: 1rem;
+}
+
+.padding-left{
+    padding-left: 12vw;
 }
 
 .padreIconos img{

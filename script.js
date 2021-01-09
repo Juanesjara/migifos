@@ -53,7 +53,7 @@ Trendings()
             let user = document.createElement('p')
             let name = document.createElement('h3')
             let cajaUserName = document.createElement('div')
-            user.innerHTML = imggif.getAttribute('data2') 
+            user.innerHTML = imggif.getAttribute('data2')
             name.innerHTML = imggif.getAttribute('data')
             cajaUserName.appendChild(user)
             cajaUserName.appendChild(name)
@@ -179,37 +179,38 @@ function CarruselTrending() {
     let productAmount = products.length;
     let productAmountVisible = 3;
     let pagex = 0;
-    
+
     btn_adelante.onclick = function () {
         if (productListSteps > productAmount - productAmountVisible) {
             productListSteps++;
-            moveProductList(-25.8*3);
+            moveProductList(-25.8 * 3);
         }
     }
 
     btn_atras.onclick = function () {
         if (productListSteps > 0) {
             productListSteps--;
-            moveProductList(-25.8*3);
+            moveProductList(-25.8 * 3);
         }
     }
-    
-    gifs.addEventListener('touchmove',(e) => {
+
+    gifs.addEventListener('touchmove', (e) => {
         console.log('a ' + e.targetTouches[0].pageX)
         console.log('b ' + pagex)
         let offset = pagex - e.targetTouches[0].pageX
         console.log('soy el offset ' + offset)
         productListSteps++;
-        if(offset > 0){
+        if (offset > 0) {
             moveProductList(-5);
-        }else{
-            moveProductList(1);
+        } else {
+            moveProductList(0.5);
         }
         pagex = e.targetTouches[0].pageX;
     })
-    
+
     function moveProductList(valorvw) {
-        productList.style.transform = `translateX(${(valorvw)* productListSteps}vw)`;
+        console.log(valorvw * productListSteps)
+        productList.style.transform = `translateX(${valorvw* productListSteps}vw)`;
     }
 }
 
@@ -318,8 +319,8 @@ async function searchFunction(offset) {
 
 let btnVerMas = document.getElementById('btnVermas')
 
-if(search.value === '' ){
-   // cerrarLista();
+if (search.value === '') {
+    // cerrarLista();
 }
 // ------------------------busqueda de gifs con enter
 
@@ -349,103 +350,104 @@ search.addEventListener('keydown', event => {
                     imggif.style.width = '23vw'
                     let urlGif = img.images.original.url
                     imggif.setAttribute('data', img.title) // data titulo
-            imggif.setAttribute('data2', img.username) // data username
-            imggif.setAttribute('src', urlGif)
-            imggif.classList.add('gif')
-            gif.appendChild(imggif);
-            let corazon = document.createElement('img')
-            let descarga = document.createElement('img')
-            let max = document.createElement('img')
-            let user = document.createElement('p')
-            let name = document.createElement('h3')
-            let cajaUserName = document.createElement('div')
-            user.innerHTML = imggif.getAttribute('data2') 
-            name.innerHTML = imggif.getAttribute('data')
-            cajaUserName.appendChild(user)
-            cajaUserName.appendChild(name)
-            cajaUserName.classList.add('display-none')
-            gif.appendChild(cajaUserName)
-            let padreinconos = document.createElement('div')
-            gif.appendChild(padreinconos)
-            padreinconos.classList.add('padreIconos')
+                    imggif.setAttribute('data2', img.username) // data username
+                       imggif.setAttribute('src', urlGif)
+                    imggif.classList.add('gif')
+                    gif.appendChild(imggif);
+                    let corazon = document.createElement('img')
+                    let descarga = document.createElement('img')
+                    let max = document.createElement('img')
+                    let user = document.createElement('p')
+                    let name = document.createElement('h3')
+                    let cajaUserName = document.createElement('div')
+                    user.innerHTML = imggif.getAttribute('data2')
+                    name.innerHTML = imggif.getAttribute('data')
+                    cajaUserName.appendChild(user)
+                    cajaUserName.appendChild(name)
+                    cajaUserName.classList.add('display-none')
+                    gif.appendChild(cajaUserName)
+                    let padreinconos = document.createElement('div')
+                    gif.appendChild(padreinconos)
+                    padreinconos.classList.add('padreIconos')
+                    padreinconos.classList.add('padding-left')
 
-            //mouseover de los gifs
+                    //mouseover de los gifs
 
-            gif.addEventListener('mouseover', () => {
-                gif.style.backgroundColor = '#572EE5'
-              
-                imggif.style.opacity = '0.5'
-                padreinconos.appendChild(corazon);
-                padreinconos.appendChild(descarga)
-                padreinconos.appendChild(max)
-                cajaUserName.classList.add('padreUserNameb')
-                cajaUserName.classList.remove('display-none')
-                descarga.style.display = 'block'
-                descarga.classList.add('iconDownload')
-                corazon.style.display = 'block'
-                corazon.classList.add('iconfav')
-                max.style.display = 'block'
-                max.classList.add('iconMax')
+                    gif.addEventListener('mouseover', () => {
+                        gif.style.backgroundColor = '#572EE5'
 
-            }, false)
+                        imggif.style.opacity = '0.5'
+                        padreinconos.appendChild(corazon);
+                        padreinconos.appendChild(descarga)
+                        padreinconos.appendChild(max)
+                        cajaUserName.classList.add('padreUserNameb')
+                        cajaUserName.classList.remove('display-none')
+                        descarga.style.display = 'block'
+                        descarga.classList.add('iconDownload')
+                        corazon.style.display = 'block'
+                        corazon.classList.add('iconfav')
+                        max.style.display = 'block'
+                        max.classList.add('iconMax')
 
-            max.addEventListener('mouseover', function () {
-                max.classList.toggle('iconMax-hover');
-                max.classList.toggle('iconMax');
-            })
+                    }, false)
 
-            max.addEventListener('mouseout', function () {
-                max.classList.toggle('iconMax');
-                max.classList.toggle('iconMax-hover');
-            })
+                    max.addEventListener('mouseover', function () {
+                        max.classList.toggle('iconMax-hover');
+                        max.classList.toggle('iconMax');
+                    })
 
-            max.addEventListener('click', function () {
-                console.log(imggif)
-                let srcdelgif = imggif.src
-                let userdelgif = imggif.getAttribute('data2')
-                let namedelgif = imggif.getAttribute('data')
-                ventana(srcdelgif, userdelgif, namedelgif)
-            })
+                    max.addEventListener('mouseout', function () {
+                        max.classList.toggle('iconMax');
+                        max.classList.toggle('iconMax-hover');
+                    })
+
+                    max.addEventListener('click', function () {
+                        console.log(imggif)
+                        let srcdelgif = imggif.src
+                        let userdelgif = imggif.getAttribute('data2')
+                        let namedelgif = imggif.getAttribute('data')
+                        ventana(srcdelgif, userdelgif, namedelgif)
+                    })
 
 
-            descarga.addEventListener('mouseover', function () {
-                descarga.classList.toggle('iconDownload-hover');
-                descarga.classList.toggle('iconDownload');
-            })
-            descarga.addEventListener('mouseout', function () {
-                descarga.classList.toggle('iconDownload');
-                descarga.classList.toggle('iconDownload-hover');
-            })
-            descarga.addEventListener('click', () => {
-                return descargarMiGifo(imggif)
-            }, false)
+                    descarga.addEventListener('mouseover', function () {
+                        descarga.classList.toggle('iconDownload-hover');
+                        descarga.classList.toggle('iconDownload');
+                    })
+                    descarga.addEventListener('mouseout', function () {
+                        descarga.classList.toggle('iconDownload');
+                        descarga.classList.toggle('iconDownload-hover');
+                    })
+                    descarga.addEventListener('click', () => {
+                        return descargarMiGifo(imggif)
+                    }, false)
 
-            corazon.addEventListener('mouseover', function () {
-                corazon.classList.toggle('iconfav-hover');
-                corazon.classList.toggle('iconfav');
-            })
-            corazon.addEventListener('mouseout', function () {
-                corazon.classList.toggle('iconfav');
-                corazon.classList.toggle('iconfav-hover');
-            })
-            corazon.addEventListener('click', function favgifs(event) {
-                event.target.classList.toggle('iconfavActive');
-                event.target.classList.toggle('iconfav');
-                let urlGifFav = imggif.getAttribute('src')
-                gifsfav.push(urlGifFav)
-                console.log(gifsfav)
-                sessionStorage.setItem('gifsFav', gifsfav)
-            })
-            imggif.addEventListener('mouseout', () => {
-                gif.style.backgroundColor = 'transparent'
-                imggif.style.opacity = '1'
-                corazon.style.display = 'none'
-                descarga.style.display = 'none'
-                max.style.display = 'none'
-                cajaUserName.classList.remove('padreUserNameb')
-                cajaUserName.classList.add('display-none')
-            })
-                    
+                    corazon.addEventListener('mouseover', function () {
+                        corazon.classList.toggle('iconfav-hover');
+                        corazon.classList.toggle('iconfav');
+                    })
+                    corazon.addEventListener('mouseout', function () {
+                        corazon.classList.toggle('iconfav');
+                        corazon.classList.toggle('iconfav-hover');
+                    })
+                    corazon.addEventListener('click', function favgifs(event) {
+                        event.target.classList.toggle('iconfavActive');
+                        event.target.classList.toggle('iconfav');
+                        let urlGifFav = imggif.getAttribute('src')
+                        gifsfav.push(urlGifFav)
+                        console.log(gifsfav)
+                        sessionStorage.setItem('gifsFav', gifsfav)
+                    })
+                    imggif.addEventListener('mouseout', () => {
+                        gif.style.backgroundColor = 'transparent'
+                        imggif.style.opacity = '1'
+                        corazon.style.display = 'none'
+                        descarga.style.display = 'none'
+                        max.style.display = 'none'
+                        cajaUserName.classList.remove('padreUserNameb')
+                        cajaUserName.classList.add('display-none')
+                    })
+
                 }
             })
     }
@@ -478,7 +480,7 @@ const divlist = document.createElement('div')
 const crearSugerencias = (encontrados, papa) => {
     //crear la lista
     divlist.setAttribute('class', 'lista-autocompletar-items')
-    
+
     papa.appendChild(divlist)
 
     if (!encontrados) return false;
@@ -489,7 +491,7 @@ const crearSugerencias = (encontrados, papa) => {
         elementoslista.innerHTML = `<strong>${item.name}</strong>`
         elementoslista.addEventListener('click', function () {
             cerrarLista()
-            
+
             search.value = this.innerText
             lineaGris.style.display = 'inline-block'
             btnVerMas.style.display = 'flex'
@@ -523,7 +525,7 @@ const crearSugerencias = (encontrados, papa) => {
 function cerrarLista() {
     const items = document.querySelectorAll('.lista-autocompletar-items')
     console.log(items.length)
-   
+
     items[0].innerHTML = ''
 }
 
