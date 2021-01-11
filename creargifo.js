@@ -1,6 +1,7 @@
 let btnComenzar = document.getElementById('comenzar')
 let btnGrabar = document.getElementById('grabar')
 let btnFinalizar = document.getElementById('finalizar')
+let btnsubir = document.getElementById('subir')
 let video = document.getElementById('video')
 let Newstream;
 let titulo = document.getElementById('titulo')
@@ -16,6 +17,8 @@ let contador = document.getElementById('reloj')
 btnComenzar.addEventListener('click', getStreamAndRecord)
 let recorder;
 let reloj;
+let srcVideo;
+const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
 function getStreamAndRecord() {
     navigator.mediaDevices.getUserMedia({
         audio: false,
@@ -46,8 +49,42 @@ function getStreamAndRecord() {
 
 btnFinalizar.addEventListener('click', pararGrabacion)
 
+
+
+function guardarMiGifo(newitem){
+    let arrayMiGifos = JSON.parse(localStorage.getItem('MisGifos')) || [];
+    arrayMiGifos.push(newitem)
+    localStorage.setItem('MisGifos', JSON.stringify(arrayMiGifos));
+};
+
+btnsubir.addEventListener('click', subirGrabacion);
+
+function subirGrabacion(){
+
+    console.log('upload started')
+    const formData = new FormData();
+        formData.append('file', srcVideo, 'myGif.gif');
+        formData.append('api_key', 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF');
+    console.log(Newstream);
+    guardarMiGifo(Newstream)
+    const parametros = {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors', 
+    };
+
+   
+
+    fetch(`http://upload.giphy.com/v1/gifs`, parametros)
+    .then((result) =>{
+        console.log(result)
+    })
+}
+
+
+
+
 function pararGrabacion(){
-    let srcVideo;
     recorder.stopRecording(function(){
         srcVideo =  recorder.getBlob();
         video.src = video.srcObject = null;
@@ -59,6 +96,8 @@ function pararGrabacion(){
     });
     window.clearInterval(reloj);
     contador.innerHTML='Repetir captura'
+    btnFinalizar.classList.add('display-none')
+    btnsubir.classList.remove('display-none')
 }
 
 contador.addEventListener('click', refrescarPagina)

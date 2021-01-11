@@ -196,7 +196,7 @@ li{
        left: 78vw;
    }
 
-   .comenzar, .grabar, .finalizar{
+   .comenzar, .grabar, .finalizar, .subir{
         display: flex;
         position: relative;
         left: 45vw;
