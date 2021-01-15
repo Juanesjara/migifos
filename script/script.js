@@ -194,7 +194,7 @@ function CarruselTrending() {
         }
     }
 
-    gifs.addEventListener('touchmove', (e) => {
+  /*  gifs.addEventListener('touchmove', (e) => {
         console.log('a ' + e.targetTouches[0].pageX)
         console.log('b ' + pagex)
         let offset = pagex - e.targetTouches[0].pageX
@@ -206,7 +206,7 @@ function CarruselTrending() {
             moveProductList(0.5);
         }
         pagex = e.targetTouches[0].pageX;
-    })
+    })*/
 
     function moveProductList(valorvw) {
         console.log(valorvw * productListSteps)
@@ -483,7 +483,10 @@ const crearSugerencias = (encontrados, papa) => {
 
     papa.appendChild(divlist)
 
-    if (!encontrados) return false;
+    if (!encontrados){
+        return false
+        cerrarLista()
+    };
 
     divlist.innerHTML = ''
     encontrados.forEach(item => {
@@ -525,7 +528,7 @@ const crearSugerencias = (encontrados, papa) => {
 function cerrarLista() {
     const items = document.querySelectorAll('.lista-autocompletar-items')
     console.log(items.length)
-
+    divlist.classList.remove('lista-autocompletar-items')
     items[0].innerHTML = ''
 }
 

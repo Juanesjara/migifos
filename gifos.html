@@ -3,30 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAVORITOS</title>
-    <link rel="stylesheet" type="text/css" href="styles/stylefavoritos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/gifos.css">
 </head>
-<body>
-    <div id="barraAzul"></div>
-    <nav>
-        <div>
-            <a href="index.html">    
-                <img src="imagenes/logo-desktop.svg" alt="logo" id="logo">
-            </a>
-        </div>
-        <ul>
-            <li id="modoNocturno">MODO NOCTURNO</li>
-            <li id="favoritos">FAVORITOS</li>
-            <li id="misGifos">MIS GIFOS</li>
-            <li><a href="">
-                <img src="imagenes/button-crear-gifo.svg" alt="boton crear">
+<div id="barraAzul"></div>
+<nav>
+    <div>
+        <img src="imagenes/burger.svg" alt="menu burguer" id="burguer">
+    </div>,   
+
+    <div>
+        <img src="imagenes/logo-desktop.svg" alt="logo" id="logo">
+    </div>
+    <ul id="lista">
+        <li id="modoNocturno">
+            <h5 id="modo-nocturno" class="menu">MODO NOCTURNO</h5>
+        </li>
+        <li id="favoritos">
+            <h5 id="favoritosh5"><a href="favoritos.html" class="menu">FAVORITOS</h5></a>
+        </li>
+        <li id="misGifos">
+            <h5><a href="" class="menu">GIFOS</a></h5>
+        </li>
+        <li><a href="creargifo1.html">
+                <img src="imagenes/button-crear-gifo.svg" alt="boton crear" id="boton_crear">
             </a></li>
-        </ul>
-    </nav>
+    </ul>
+</nav>
+<body>
     <div id="portada">
-        <img src="imagenes/icon-favoritos.svg" alt="icon-favoritos">
-        <h3 id="favorito">Favoritos</h3>
+        <img src="imagenes/icon-mis-gifos.svg" alt="icon-favoritos">
+        <h3 id="favorito">Mis GIFOS</h3>
     </div>
     <div id="cuadros">
         <!--<div class="cuadro"></div>
@@ -38,9 +45,8 @@
         <div class="cuadro"></div>-->
 
         <div id="favSinContenido">
-            <img src="imagenes/icon-fav-sin-contenido.svg" alt="icon-fav-sin-contenido">
-            <h3 id="guardaFav">"¡Guarda tu primer GIFO en Favoritos 
-                para que se muestre aquí!"</h3>
+            <img src="imagenes/icon-mis-gifos-sin-contenido.svg" alt="icon-fav-sin-contenido">
+            <h3 id="guardaFav">¡Anímate a crear tu primer GIFO!</h3>
         </div>
     </div>
     <div id="trendinggif">
@@ -64,9 +70,8 @@
             <a href="https://twitter.com/"> <img src="imagenes/icon-twitter.svg" alt="icon-twitter"></a>
             <a href="https://www.instagram.com/"> <img src="imagenes/icon_instagram.svg" alt="icon_instagram"></a>
         </div>
-        <p>© GIFOS 2020 All Rights Reserved.</p>
+        <p id="copyright">© GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <div id="barraAzul2"></div>
-    <script src="/script/scriptsfav.js"></script>
 </body>
 </html>

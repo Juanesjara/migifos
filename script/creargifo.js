@@ -3,6 +3,8 @@ let btnGrabar = document.getElementById('grabar')
 let btnFinalizar = document.getElementById('finalizar')
 let btnsubir = document.getElementById('subir')
 let video = document.getElementById('video')
+let padreVideo = document.getElementById('padreVideo');
+let textoVideo = document.getElementById('textoVideo');
 let Newstream;
 let titulo = document.getElementById('titulo')
 let titulo2 = document.getElementById('titulo2')
@@ -16,8 +18,10 @@ let padreSubtitulo = document.getElementById('padre-subtitulo')
 let contador = document.getElementById('reloj')
 btnComenzar.addEventListener('click', getStreamAndRecord)
 let recorder;
+let recorderVIDEO;
 let reloj;
 let srcVideo;
+let srcGif;
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
 function getStreamAndRecord() {
     navigator.mediaDevices.getUserMedia({
@@ -38,6 +42,14 @@ function getStreamAndRecord() {
         mostrarCamara()
         
         recorder = RecordRTC(stream, {
+            type: 'gif',
+            frameRate: 6,
+            quality: 10,
+            width: 360,
+            hidden: 240,
+        })
+
+        recorderVIDEO = RecordRTC(stream, {
             type: 'video',
         })
     })
@@ -60,40 +72,52 @@ function guardarMiGifo(newitem){
 btnsubir.addEventListener('click', subirGrabacion);
 
 function subirGrabacion(){
-
+    btnsubir.classList.add('display-none');
+    video.classList.add('videoOpaco');
+    padreVideo.classList.remove('display-none')
+    textoVideo.classList.remove('display-none')
     console.log('upload started')
     const formData = new FormData();
-        formData.append('file', srcVideo, 'myGif.gif');
+        formData.append('file', srcGif, 'myGif.gif');
         formData.append('api_key', 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF');
     console.log(Newstream);
     guardarMiGifo(Newstream)
     const parametros = {
         method: 'POST',
         body: formData,
-        mode: 'no-cors', 
+		json: true,
     };
 
-   
 
-    fetch(`http://upload.giphy.com/v1/gifs`, parametros)
-    .then((result) =>{
-        console.log(result)
+    fetch(`https://upload.giphy.com/v1/gifs`, parametros)
+    .then(response => response.json())
+    .then((data) => {
+        console.log(data)
+        gifoSubido()
     })
 }
 
-
+function gifoSubido(){
+    textoVideo.innerHTML = 'tu gifo ha sido subido con exito'
+}
 
 
 function pararGrabacion(){
-    recorder.stopRecording(function(){
-        srcVideo =  recorder.getBlob();
+    recorderVIDEO.stopRecording(function(){
+        srcVideo =  recorderVIDEO.getBlob();
         video.src = video.srcObject = null;
-        console.log(srcVideo);
+       // console.log(srcVideo);
         video.src = URL.createObjectURL(srcVideo);
         video.load()
         video.play()
         video.loop = true
     });
+
+    recorder.stopRecording(function(){
+        srcGif = recorder.getBlob()
+
+    })
+
     window.clearInterval(reloj);
     contador.innerHTML='Repetir captura'
     btnFinalizar.classList.add('display-none')
@@ -112,6 +136,7 @@ btnGrabar.addEventListener('click', iniciarGrabacion)
 function iniciarGrabacion(){
     btnGrabar.classList.add('display-none')  
     recorder.startRecording();
+    recorderVIDEO.startRecording()
     btnFinalizar.classList.remove('display-none')
     let n = 0
     reloj = window.setInterval(function(){
@@ -122,7 +147,7 @@ function iniciarGrabacion(){
 }
   
 function mostrarCamara(){
-    
+    padreVideo.classList.remove('display-none')
     video.classList.remove('display-none')
     padreTitulo.style.display = 'none'
     padreSubtitulo.classList.add('display-none')
@@ -131,6 +156,7 @@ function mostrarCamara(){
     btnGrabar.classList.remove('display-none')
     btnComenzar.classList.add('display-none')
     btnFinalizar.classList.add('display-none')
+
 }
 
 function pedircamara(){
