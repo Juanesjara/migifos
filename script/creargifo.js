@@ -81,7 +81,7 @@ function subirGrabacion(){
         formData.append('file', srcGif, 'myGif.gif');
         formData.append('api_key', 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF');
     console.log(Newstream);
-    guardarMiGifo(Newstream)
+    
     const parametros = {
         method: 'POST',
         body: formData,

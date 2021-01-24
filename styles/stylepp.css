@@ -298,6 +298,12 @@ strong{
 }
 
 .gif{
+    width: 23vw;
+    height: 29vh;
+    position: relative;
+}
+
+.giftrending{
     width: 25vw;
     height: 35vh;
     position: relative;
@@ -305,7 +311,8 @@ strong{
 
 
 .padreUserName{
-    bottom: 1vh;
+    transform: translateY(-30px);
+  
     position: absolute;
     color: white;
     font-weight: 400;
@@ -473,8 +480,10 @@ strong{
     border: 1px solid black;
     height: 35vh;
     position: relative;
-    /*background: linear-gradient( #572EE5 60%, white 90%);*/
+   
 }
+
+
 
 
 #flecha-Izquierda{

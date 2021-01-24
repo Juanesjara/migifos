@@ -5,23 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAVORITOS</title>
     <link rel="stylesheet" type="text/css" href="styles/stylefavoritos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="barraAzul"></div>
     <nav>
         <div>
-            <a href="index.html">    
+                <img src="imagenes/burger.svg" alt="menu burguer" id="burguer">
+        </div>
+        <div>
+            <a href="/index.html">
                 <img src="imagenes/logo-desktop.svg" alt="logo" id="logo">
             </a>
+        </a>
         </div>
-        <ul>
-            <li id="modoNocturno">MODO NOCTURNO</li>
-            <li id="favoritos">FAVORITOS</li>
-            <li id="misGifos">MIS GIFOS</li>
-            <li><a href="">
-                <img src="imagenes/button-crear-gifo.svg" alt="boton crear">
-            </a></li>
+        <ul id="lista">
+            <li id="modoNocturno">
+                <h5 id="modo-nocturno" class="menu">MODO NOCTURNO</h5>
+            </li>
+            <li id="favoritos">
+                <h5 id="favoritosh5"><a href="favoritos.html" class="menu">FAVORITOS</h5></a>
+            </li>
+            <li id="misGifos">
+                <h5><a href="gifos.html" class="menu">GIFOS</a></h5>
+            </li>
+            <li><a href="creargifo1.html">
+                    <img src="imagenes/button-crear-gifo.svg" alt="boton crear" id="boton_crear">
+                </a></li>
         </ul>
     </nav>
     <div id="portada">
@@ -43,6 +54,27 @@
                 para que se muestre aquí!"</h3>
         </div>
     </div>
+
+    <div id="gifMax" class="none">
+        <div id="x">
+            <a href=""><img src="imagenes/close.svg" alt="close"></a>
+        </div>
+        <div id="gifs-en-max">
+
+            <img id="gif-en-max">
+        </div>
+        <div id="pie">
+            <div id="info">
+                <p id="User">User</p>
+                <h2 id="titulo-en-max">Titulo del gifo</h2>
+            </div>
+            <div class="iconos">
+                <img src="imagenes/icon-fav-hover.svg" alt="icon-fav-hover">
+                <img src="imagenes/icon-download-hover.svg" alt="icon-download-hover">
+            </div>
+        </div>
+    </div>
+
     <div id="trendinggif">
         <h2 id="gifh2">Trending GIFOS</h2>
         <P id="gifp">Mira los ultimos GIFOS de nuestra comunidad.</P>
@@ -64,7 +96,7 @@
             <a href="https://twitter.com/"> <img src="imagenes/icon-twitter.svg" alt="icon-twitter"></a>
             <a href="https://www.instagram.com/"> <img src="imagenes/icon_instagram.svg" alt="icon_instagram"></a>
         </div>
-        <p>© GIFOS 2020 All Rights Reserved.</p>
+        <p id="copyright">© GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <div id="barraAzul2"></div>
     <script src="/script/scriptsfav.js"></script>

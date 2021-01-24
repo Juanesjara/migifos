@@ -43,9 +43,10 @@ Trendings()
             let imggif = document.createElement('img');
             let urlGif = img.images.original.url
             imggif.setAttribute('data', img.title) // data titulo
-            imggif.setAttribute('data2', img.username) // data username
+            imggif.setAttribute('data2', img.username)
+            imggif.setAttribute('data3', img.id) // data username
             imggif.setAttribute('src', urlGif)
-            imggif.classList.add('gif')
+            imggif.classList.add('giftrending')
             gif.appendChild(imggif);
             let corazon = document.createElement('img')
             let descarga = document.createElement('img')
@@ -122,8 +123,9 @@ Trendings()
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
-                let urlGifFav = imggif.getAttribute('src')
-                gifsfav.push(urlGifFav)
+                //let urlGifFav = imggif.getAttribute('src')
+                let idGifFav = imggif.getAttribute('data3')
+                gifsfav.push(idGifFav)
                 console.log(gifsfav)
                 sessionStorage.setItem('gifsFav', gifsfav)
             })
@@ -135,7 +137,21 @@ Trendings()
                 max.style.display = 'none'
                 cajaUserName.classList.remove('padreUserName')
             })
+
+            var mediaqueryList = window.matchMedia("(min-width: 500px)");
+            if(mediaqueryList.matches) {
+               
+                imggif.addEventListener('click', function () {
+                    console.log(imggif)
+                    let srcdelgif = imggif.src
+                    let userdelgif = imggif.getAttribute('data2')
+                    let namedelgif = imggif.getAttribute('data')
+                    ventana(srcdelgif, userdelgif, namedelgif)
+                })
+              }
+
         }
+
     });
 
 
@@ -194,25 +210,13 @@ function CarruselTrending() {
         }
     }
 
-  /*  gifs.addEventListener('touchmove', (e) => {
-        console.log('a ' + e.targetTouches[0].pageX)
-        console.log('b ' + pagex)
-        let offset = pagex - e.targetTouches[0].pageX
-        console.log('soy el offset ' + offset)
-        productListSteps++;
-        if (offset > 0) {
-            moveProductList(-5);
-        } else {
-            moveProductList(0.5);
-        }
-        pagex = e.targetTouches[0].pageX;
-    })*/
-
     function moveProductList(valorvw) {
         console.log(valorvw * productListSteps)
         productList.style.transform = `translateX(${valorvw* productListSteps}vw)`;
     }
 }
+
+
 
 
 
@@ -272,32 +276,7 @@ function modoNocturno() {
         });
         return
     }
-
-    body[0].style.backgroundColor = 'white'
-    elementoslista.forEach(elementos => elementos.style.color = '#572EE5')
-    modoNocturnoH5.innerHTML = 'MODO NOCTURNO';
-    lista.forEach(elementos => elementos.style.paddingLeft = '0vw');
-    logo.setAttribute('src', 'imagenes/Logo-desktop.svg');
-    titulo.style.color = '#572EE5';
-    input.style.backgroundColor = 'white';
-    input.style.backgroundImage = 'url( ../imagenes/icon-search.svg)'
-    input.style.color = 'black';
-    trendingp.style.color = '#572EE5';
-    trending.style.color = '#572EE5';
-    trendingGif.style.background = '#F3F5F8';
-    gifh2.style.color = '#572EE5'
-    gifp.style.color = 'black'
-    compartir.style.color = 'black'
-    copyright.style.color = 'black'
-    flechaD.setAttribute('src', 'imagenes/button-slider-right.svg')
-    flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
-    btn_adelante.addEventListener('mouseout', () => {
-        flechaD.setAttribute('src', 'imagenes/button-slider-right.svg')
-    });
-    btn_atras.addEventListener('mouseout', () => {
-        flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
-    });
-
+    window.location.href = "index.html"
 }
 
 // busquedad de gifs
@@ -346,12 +325,10 @@ search.addEventListener('keydown', event => {
                     imggif.setAttribute('src', img.images.original.url)
                     gif.appendChild(imggif);
                     imggif.style.paddingBottom = '2vh'
-                    imggif.style.height = '29vh';
-                    imggif.style.width = '23vw'
-                    let urlGif = img.images.original.url
                     imggif.setAttribute('data', img.title) // data titulo
                     imggif.setAttribute('data2', img.username) // data username
-                       imggif.setAttribute('src', urlGif)
+                    imggif.setAttribute('data3', img.id) // data username
+                   
                     imggif.classList.add('gif')
                     gif.appendChild(imggif);
                     let corazon = document.createElement('img')
@@ -433,11 +410,13 @@ search.addEventListener('keydown', event => {
                     corazon.addEventListener('click', function favgifs(event) {
                         event.target.classList.toggle('iconfavActive');
                         event.target.classList.toggle('iconfav');
-                        let urlGifFav = imggif.getAttribute('src')
-                        gifsfav.push(urlGifFav)
+                        //let urlGifFav = imggif.getAttribute('src')
+                        let idGifFav = imggif.getAttribute('data3')
+                        gifsfav.push(idGifFav)
                         console.log(gifsfav)
                         sessionStorage.setItem('gifsFav', gifsfav)
                     })
+
                     imggif.addEventListener('mouseout', () => {
                         gif.style.backgroundColor = 'transparent'
                         imggif.style.opacity = '1'
