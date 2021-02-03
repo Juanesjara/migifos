@@ -45,9 +45,11 @@ li{
     text-decoration: none;
     color: #572EE5;
 }
-.menu:visited{
-    color: #572EE5;
+
+.menuVisitado{
+    color: #9CAFC3;
 }
+
 #portada{
     position: relative;
     left: 50%;

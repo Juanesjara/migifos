@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAVORITOS</title>
     <link rel="stylesheet" type="text/css" href="styles/stylefavoritos.css">
+    <link rel="stylesheet" type="text/css" href="styles/stylemobilefav.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div id="barraAzul"></div>
     <nav>
         <div>
-                <img src="imagenes/burger.svg" alt="menu burguer" id="burguer">
+            <img src="imagenes/burger.svg" alt="menu burguer" id="burguer">
         </div>
         <div>
             <a href="/index.html">
                 <img src="imagenes/logo-desktop.svg" alt="logo" id="logo">
             </a>
-        </a>
+            </a>
         </div>
         <ul id="lista">
             <li id="modoNocturno">
                 <h5 id="modo-nocturno" class="menu">MODO NOCTURNO</h5>
             </li>
             <li id="favoritos">
-                <h5 id="favoritosh5"><a href="favoritos.html" class="menu">FAVORITOS</h5></a>
+                <h5 id="menu"><a href="favoritos.html" class="favoritosh5">FAVORITOS</h5></a>
             </li>
             <li id="misGifos">
                 <h5><a href="gifos.html" class="menu">GIFOS</a></h5>
@@ -50,7 +53,7 @@
 
         <div id="favSinContenido">
             <img src="imagenes/icon-fav-sin-contenido.svg" alt="icon-fav-sin-contenido">
-            <h3 id="guardaFav">"¡Guarda tu primer GIFO en Favoritos 
+            <h3 id="guardaFav">"¡Guarda tu primer GIFO en Favoritos
                 para que se muestre aquí!"</h3>
         </div>
     </div>
@@ -69,7 +72,7 @@
                 <h2 id="titulo-en-max">Titulo del gifo</h2>
             </div>
             <div class="iconos">
-                <img src="imagenes/icon-fav-hover.svg" alt="icon-fav-hover">
+                <img src="imagenes/icon-fav-hover.svg" alt="icon-fav-hover" id="corazonEnMax">
                 <img src="imagenes/icon-download-hover.svg" alt="icon-download-hover">
             </div>
         </div>
@@ -101,4 +104,5 @@
     <div id="barraAzul2"></div>
     <script src="/script/scriptsfav.js"></script>
 </body>
+
 </html>

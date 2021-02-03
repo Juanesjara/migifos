@@ -37,8 +37,6 @@ Trendings()
         console.log(imagen);
         for (img of imagen) {
             let gif = document.createElement('div');
-            gif.setAttribute('id', gif)
-            gif.classList.add('product')
             gifs.appendChild(gif);
             let imggif = document.createElement('img');
             let urlGif = img.images.original.url
@@ -63,9 +61,9 @@ Trendings()
             gif.appendChild(padreinconos)
             padreinconos.classList.add('padreIconos')
 
-            //mouseover de los gifs
+            //mouseover de los gif
 
-            gif.addEventListener('mouseover', () => {
+            function mouseovergif(){
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
                 padreinconos.appendChild(corazon);
@@ -78,32 +76,34 @@ Trendings()
                 corazon.classList.add('iconfav')
                 max.style.display = 'block'
                 max.classList.add('iconMax')
+            }
 
-            }, false)
+
+            gif.addEventListener('mouseover', mouseovergif, false)
 
             max.addEventListener('mouseover', function () {
                 max.classList.toggle('iconMax-hover');
                 max.classList.toggle('iconMax');
-            })
+            }, false)
 
             max.addEventListener('mouseout', function () {
                 max.classList.toggle('iconMax');
                 max.classList.toggle('iconMax-hover');
-            })
+            }, false)
 
             max.addEventListener('click', function () {
-                console.log(imggif)
                 let srcdelgif = imggif.src
                 let userdelgif = imggif.getAttribute('data2')
                 let namedelgif = imggif.getAttribute('data')
-                ventana(srcdelgif, userdelgif, namedelgif)
-            })
+                let idDelGif = imggif.getAttribute('data3')
+                ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+            }, false)
 
 
             descarga.addEventListener('mouseover', function () {
                 descarga.classList.toggle('iconDownload-hover');
                 descarga.classList.toggle('iconDownload');
-            })
+            }, false)
             descarga.addEventListener('mouseout', function () {
                 descarga.classList.toggle('iconDownload');
                 descarga.classList.toggle('iconDownload-hover');
@@ -115,11 +115,11 @@ Trendings()
             corazon.addEventListener('mouseover', function () {
                 corazon.classList.toggle('iconfav-hover');
                 corazon.classList.toggle('iconfav');
-            })
+            }, false)
             corazon.addEventListener('mouseout', function () {
                 corazon.classList.toggle('iconfav');
                 corazon.classList.toggle('iconfav-hover');
-            })
+            }, false)
             corazon.addEventListener('click', function favgifs(event) {
                 event.target.classList.toggle('iconfavActive');
                 event.target.classList.toggle('iconfav');
@@ -127,8 +127,9 @@ Trendings()
                 let idGifFav = imggif.getAttribute('data3')
                 gifsfav.push(idGifFav)
                 console.log(gifsfav)
-                sessionStorage.setItem('gifsFav', gifsfav)
-            })
+                localStorage.setItem('gifsFav', gifsfav)
+            }, )
+
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
@@ -136,39 +137,76 @@ Trendings()
                 descarga.style.display = 'none'
                 max.style.display = 'none'
                 cajaUserName.classList.remove('padreUserName')
-            })
+            }, false)
 
-            var mediaqueryList = window.matchMedia("(min-width: 500px)");
-            if(mediaqueryList.matches) {
-               
-                imggif.addEventListener('click', function () {
+            var mediaqueryList = window.matchMedia("(max-width: 500px)");
+            if (mediaqueryList.matches) {
+                gif.removeEventListener('click', mouseovergif)
+                gif.addEventListener('click', () => {
                     console.log(imggif)
                     let srcdelgif = imggif.src
                     let userdelgif = imggif.getAttribute('data2')
                     let namedelgif = imggif.getAttribute('data')
-                    ventana(srcdelgif, userdelgif, namedelgif)
-                })
-              }
+                    let idDelGif = imggif.getAttribute('data3')
+                    ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                },false)
+            }
 
         }
 
     });
 
+   
 
 
-function ventana(imggif, user, name) {
+let corazonEnMax = document.getElementById('corazonEnMax');
+
+
+let cuadrogif = document.getElementById('gif-en-max')
+
+let descargaEnMax = document.getElementById('descargaEnMax')
+
+descargaEnMax.addEventListener('click', function () {
+    return descargarMiGifo(cuadrogif)
+}, false)
+
+
+function ventana(imggif, user, name, id) {
+
     let gifmaxhtml = document.getElementById('gifMax')
     gifmaxhtml.classList.add('gifmax')
     gifmaxhtml.classList.remove('none')
     let body = document.querySelectorAll('body')[0]
     body.classList.add('overflow')
-    let cuadrogif = document.getElementById('gif-en-max')
     cuadrogif.setAttribute('src', imggif)
+    cuadrogif.setAttribute('data2', id)
+    cuadrogif.setAttribute('data', name)
     let userhtml = document.getElementById('User')
     userhtml.innerHTML = user
     let namehtml = document.getElementById('titulo-en-max')
     namehtml.innerHTML = name
+
 }
+
+
+corazonEnMax.addEventListener('click', function (event) {
+    event.target.classList.toggle('iconfavActive');
+    event.target.classList.toggle('iconfav');
+    event.target.classList.toggle('padding')
+    console.log(cuadrogif.getAttribute('data2'))
+    let id = cuadrogif.getAttribute('data2')
+    corazonEnMaxFuncion(id);
+})
+
+
+function corazonEnMaxFuncion(idGifFav) {
+    gifsfav.push(idGifFav)
+    console.log(gifsfav)
+    localStorage.setItem('gifsFav', gifsfav)
+}
+
+
+
 
 
 
@@ -279,6 +317,18 @@ function modoNocturno() {
     window.location.href = "index.html"
 }
 
+
+function trenging() {
+    let hola = fetch('https://api.giphy.com/v1/tags/related/{term}' + '?api_key=' + apiKey)
+        .then(response => {
+            console.log(response.json())
+        })
+
+}
+
+trenging()
+
+
 // busquedad de gifs
 let offset = 12;
 let lineaGris = document.getElementById('lineaGris');
@@ -298,16 +348,14 @@ async function searchFunction(offset) {
 
 let btnVerMas = document.getElementById('btnVermas')
 
-if (search.value === '') {
-    // cerrarLista();
-}
+
 // ------------------------busqueda de gifs con enter
 
 search.addEventListener('keydown', event => {
     if (event.keyCode == 13) {
         lineaGris.style.display = 'inline-block'
         btnVerMas.style.display = 'flex'
-        cerrarLista()
+        cerrarLista();
         searchFunction(offset)
             .then(imagen => {
                 console.log(imagen);
@@ -328,7 +376,7 @@ search.addEventListener('keydown', event => {
                     imggif.setAttribute('data', img.title) // data titulo
                     imggif.setAttribute('data2', img.username) // data username
                     imggif.setAttribute('data3', img.id) // data username
-                   
+
                     imggif.classList.add('gif')
                     gif.appendChild(imggif);
                     let corazon = document.createElement('img')
@@ -352,7 +400,6 @@ search.addEventListener('keydown', event => {
 
                     gif.addEventListener('mouseover', () => {
                         gif.style.backgroundColor = '#572EE5'
-
                         imggif.style.opacity = '0.5'
                         padreinconos.appendChild(corazon);
                         padreinconos.appendChild(descarga)
@@ -371,26 +418,26 @@ search.addEventListener('keydown', event => {
                     max.addEventListener('mouseover', function () {
                         max.classList.toggle('iconMax-hover');
                         max.classList.toggle('iconMax');
-                    })
+                    }, false)
 
                     max.addEventListener('mouseout', function () {
                         max.classList.toggle('iconMax');
                         max.classList.toggle('iconMax-hover');
-                    })
+                    }, false)
 
                     max.addEventListener('click', function () {
-                        console.log(imggif)
                         let srcdelgif = imggif.src
                         let userdelgif = imggif.getAttribute('data2')
                         let namedelgif = imggif.getAttribute('data')
-                        ventana(srcdelgif, userdelgif, namedelgif)
-                    })
+                        let idDelGif = imggif.getAttribute('data3')
+                        ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                    }, false)
 
 
                     descarga.addEventListener('mouseover', function () {
                         descarga.classList.toggle('iconDownload-hover');
                         descarga.classList.toggle('iconDownload');
-                    })
+                    }, false)
                     descarga.addEventListener('mouseout', function () {
                         descarga.classList.toggle('iconDownload');
                         descarga.classList.toggle('iconDownload-hover');
@@ -402,11 +449,11 @@ search.addEventListener('keydown', event => {
                     corazon.addEventListener('mouseover', function () {
                         corazon.classList.toggle('iconfav-hover');
                         corazon.classList.toggle('iconfav');
-                    })
+                    }, false)
                     corazon.addEventListener('mouseout', function () {
                         corazon.classList.toggle('iconfav');
                         corazon.classList.toggle('iconfav-hover');
-                    })
+                    }, false)
                     corazon.addEventListener('click', function favgifs(event) {
                         event.target.classList.toggle('iconfavActive');
                         event.target.classList.toggle('iconfav');
@@ -414,8 +461,8 @@ search.addEventListener('keydown', event => {
                         let idGifFav = imggif.getAttribute('data3')
                         gifsfav.push(idGifFav)
                         console.log(gifsfav)
-                        sessionStorage.setItem('gifsFav', gifsfav)
-                    })
+                        localStorage.setItem('gifsFav', gifsfav)
+                    }, false)
 
                     imggif.addEventListener('mouseout', () => {
                         gif.style.backgroundColor = 'transparent'
@@ -425,8 +472,20 @@ search.addEventListener('keydown', event => {
                         max.style.display = 'none'
                         cajaUserName.classList.remove('padreUserNameb')
                         cajaUserName.classList.add('display-none')
-                    })
+                    }, false)
 
+                    var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                    if (mediaqueryList.matches) {
+
+                        imggif.addEventListener('click', function () {
+                            console.log(imggif)
+                            let srcdelgif = imggif.src
+                            let userdelgif = imggif.getAttribute('data2')
+                            let namedelgif = imggif.getAttribute('data')
+                            let idDelGif = imggif.getAttribute('data3')
+                            ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                        })
+                    }
                 }
             })
     }
@@ -448,8 +507,119 @@ btnVerMas.onclick = () => {
                 let imggif = document.createElement('img');
                 imggif.setAttribute('src', img.images.original.url)
                 gif.appendChild(imggif);
-                imggif.style.height = '20vh';
-                imggif.style.width = '20vw'
+                imggif.style.paddingBottom = '2vh'
+                imggif.setAttribute('data', img.title) // data titulo
+                imggif.setAttribute('data2', img.username) // data username
+                imggif.setAttribute('data3', img.id) // data username
+
+                imggif.classList.add('gif')
+                gif.appendChild(imggif);
+                let corazon = document.createElement('img')
+                let descarga = document.createElement('img')
+                let max = document.createElement('img')
+                let user = document.createElement('p')
+                let name = document.createElement('h3')
+                let cajaUserName = document.createElement('div')
+                user.innerHTML = imggif.getAttribute('data2')
+                name.innerHTML = imggif.getAttribute('data')
+                cajaUserName.appendChild(user)
+                cajaUserName.appendChild(name)
+                cajaUserName.classList.add('display-none')
+                gif.appendChild(cajaUserName)
+                let padreinconos = document.createElement('div')
+                gif.appendChild(padreinconos)
+                padreinconos.classList.add('padreIconos')
+                padreinconos.classList.add('padding-left')
+
+
+                gif.addEventListener('mouseover', () => {
+                    gif.style.backgroundColor = '#572EE5'
+                    imggif.style.opacity = '0.5'
+                    padreinconos.appendChild(corazon);
+                    padreinconos.appendChild(descarga)
+                    padreinconos.appendChild(max)
+                    cajaUserName.classList.add('padreUserNameb')
+                    cajaUserName.classList.remove('display-none')
+                    descarga.style.display = 'block'
+                    descarga.classList.add('iconDownload')
+                    corazon.style.display = 'block'
+                    corazon.classList.add('iconfav')
+                    max.style.display = 'block'
+                    max.classList.add('iconMax')
+
+                }, false)
+
+                max.addEventListener('mouseover', function () {
+                    max.classList.toggle('iconMax-hover');
+                    max.classList.toggle('iconMax');
+                }, false)
+
+                max.addEventListener('mouseout', function () {
+                    max.classList.toggle('iconMax');
+                    max.classList.toggle('iconMax-hover');
+                }, false)
+
+                max.addEventListener('click', function () {
+                    let srcdelgif = imggif.src
+                    let userdelgif = imggif.getAttribute('data2')
+                    let namedelgif = imggif.getAttribute('data')
+                    let idDelGif = imggif.getAttribute('data3')
+                    ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                }, false)
+
+
+                descarga.addEventListener('mouseover', function () {
+                    descarga.classList.toggle('iconDownload-hover');
+                    descarga.classList.toggle('iconDownload');
+                }, false)
+                descarga.addEventListener('mouseout', function () {
+                    descarga.classList.toggle('iconDownload');
+                    descarga.classList.toggle('iconDownload-hover');
+                })
+                descarga.addEventListener('click', () => {
+                    return descargarMiGifo(imggif)
+                }, false)
+
+                corazon.addEventListener('mouseover', function () {
+                    corazon.classList.toggle('iconfav-hover');
+                    corazon.classList.toggle('iconfav');
+                }, false)
+                corazon.addEventListener('mouseout', function () {
+                    corazon.classList.toggle('iconfav');
+                    corazon.classList.toggle('iconfav-hover');
+                }, false)
+                corazon.addEventListener('click', function favgifs(event) {
+                    event.target.classList.toggle('iconfavActive');
+                    event.target.classList.toggle('iconfav');
+                    //let urlGifFav = imggif.getAttribute('src')
+                    let idGifFav = imggif.getAttribute('data3')
+                    gifsfav.push(idGifFav)
+                    console.log(gifsfav)
+                    localStorage.setItem('gifsFav', gifsfav)
+                }, false)
+
+                imggif.addEventListener('mouseout', () => {
+                    gif.style.backgroundColor = 'transparent'
+                    imggif.style.opacity = '1'
+                    corazon.style.display = 'none'
+                    descarga.style.display = 'none'
+                    max.style.display = 'none'
+                    cajaUserName.classList.remove('padreUserNameb')
+                    cajaUserName.classList.add('display-none')
+                }, false)
+
+                var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                if (mediaqueryList.matches) {
+
+                    imggif.addEventListener('click', function () {
+                        console.log(imggif)
+                        let srcdelgif = imggif.src
+                        let userdelgif = imggif.getAttribute('data2')
+                        let namedelgif = imggif.getAttribute('data')
+                        let idDelGif = imggif.getAttribute('data3')
+                        ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                    })
+                }
             }
         })
 }
@@ -462,7 +632,7 @@ const crearSugerencias = (encontrados, papa) => {
 
     papa.appendChild(divlist)
 
-    if (!encontrados){
+    if (!encontrados) {
         return false
         cerrarLista()
     };
@@ -472,11 +642,11 @@ const crearSugerencias = (encontrados, papa) => {
         let elementoslista = document.createElement('div')
         elementoslista.innerHTML = `<strong>${item.name}</strong>`
         elementoslista.addEventListener('click', function () {
-            cerrarLista()
 
             search.value = this.innerText
             lineaGris.style.display = 'inline-block'
             btnVerMas.style.display = 'flex'
+            cerrarLista();
             searchFunction(offset)
                 .then(imagen => {
                     console.log(imagen);
@@ -486,15 +656,127 @@ const crearSugerencias = (encontrados, papa) => {
                     console.log(cuadros.childNodes)
 
                     for (img of imagen) {
-                        gif = document.createElement('figure');
+                        gif = document.createElement('div');
                         gif.setAttribute('class', 'cuadro')
                         cuadros.appendChild(gif)
                         cuadros.style.paddingBottom = '15vh '
                         let imggif = document.createElement('img');
                         imggif.setAttribute('src', img.images.original.url)
                         gif.appendChild(imggif);
-                        imggif.style.height = '20vh';
-                        imggif.style.width = '20vw'
+                        imggif.style.paddingBottom = '2vh'
+                        imggif.setAttribute('data', img.title) // data titulo
+                        imggif.setAttribute('data2', img.username) // data username
+                        imggif.setAttribute('data3', img.id) // data username
+
+                        imggif.classList.add('gif')
+                        gif.appendChild(imggif);
+                        let corazon = document.createElement('img')
+                        let descarga = document.createElement('img')
+                        let max = document.createElement('img')
+                        let user = document.createElement('p')
+                        let name = document.createElement('h3')
+                        let cajaUserName = document.createElement('div')
+                        user.innerHTML = imggif.getAttribute('data2')
+                        name.innerHTML = imggif.getAttribute('data')
+                        cajaUserName.appendChild(user)
+                        cajaUserName.appendChild(name)
+                        cajaUserName.classList.add('display-none')
+                        gif.appendChild(cajaUserName)
+                        let padreinconos = document.createElement('div')
+                        gif.appendChild(padreinconos)
+                        padreinconos.classList.add('padreIconos')
+                        padreinconos.classList.add('padding-left')
+
+
+
+                        gif.addEventListener('mouseover', () => {
+                            gif.style.backgroundColor = '#572EE5'
+                            imggif.style.opacity = '0.5'
+                            padreinconos.appendChild(corazon);
+                            padreinconos.appendChild(descarga)
+                            padreinconos.appendChild(max)
+                            cajaUserName.classList.add('padreUserNameb')
+                            cajaUserName.classList.remove('display-none')
+                            descarga.style.display = 'block'
+                            descarga.classList.add('iconDownload')
+                            corazon.style.display = 'block'
+                            corazon.classList.add('iconfav')
+                            max.style.display = 'block'
+                            max.classList.add('iconMax')
+
+                        }, false)
+
+                        max.addEventListener('mouseover', function () {
+                            max.classList.toggle('iconMax-hover');
+                            max.classList.toggle('iconMax');
+                        }, false)
+
+                        max.addEventListener('mouseout', function () {
+                            max.classList.toggle('iconMax');
+                            max.classList.toggle('iconMax-hover');
+                        }, false)
+
+                        max.addEventListener('click', function () {
+                            let srcdelgif = imggif.src
+                            let userdelgif = imggif.getAttribute('data2')
+                            let namedelgif = imggif.getAttribute('data')
+                            let idDelGif = imggif.getAttribute('data3')
+                            ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                        }, false)
+
+
+                        descarga.addEventListener('mouseover', function () {
+                            descarga.classList.toggle('iconDownload-hover');
+                            descarga.classList.toggle('iconDownload');
+                        }, false)
+                        descarga.addEventListener('mouseout', function () {
+                            descarga.classList.toggle('iconDownload');
+                            descarga.classList.toggle('iconDownload-hover');
+                        })
+                        descarga.addEventListener('click', () => {
+                            return descargarMiGifo(imggif)
+                        }, false)
+
+                        corazon.addEventListener('mouseover', function () {
+                            corazon.classList.toggle('iconfav-hover');
+                            corazon.classList.toggle('iconfav');
+                        }, false)
+                        corazon.addEventListener('mouseout', function () {
+                            corazon.classList.toggle('iconfav');
+                            corazon.classList.toggle('iconfav-hover');
+                        }, false)
+                        corazon.addEventListener('click', function favgifs(event) {
+                            event.target.classList.toggle('iconfavActive');
+                            event.target.classList.toggle('iconfav');
+                            //let urlGifFav = imggif.getAttribute('src')
+                            let idGifFav = imggif.getAttribute('data3')
+                            gifsfav.push(idGifFav)
+                            console.log(gifsfav)
+                            localStorage.setItem('gifsFav', gifsfav)
+                        }, false)
+
+                        imggif.addEventListener('mouseout', () => {
+                            gif.style.backgroundColor = 'transparent'
+                            imggif.style.opacity = '1'
+                            corazon.style.display = 'none'
+                            descarga.style.display = 'none'
+                            max.style.display = 'none'
+                            cajaUserName.classList.remove('padreUserNameb')
+                            cajaUserName.classList.add('display-none')
+                        }, false)
+
+                        var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                        if (mediaqueryList.matches) {
+
+                            imggif.addEventListener('click', function () {
+                                console.log(imggif)
+                                let srcdelgif = imggif.src
+                                let userdelgif = imggif.getAttribute('data2')
+                                let namedelgif = imggif.getAttribute('data')
+                                let idDelGif = imggif.getAttribute('data3')
+                                ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                            })
+                        }
                     }
                 })
         })

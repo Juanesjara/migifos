@@ -1,6 +1,6 @@
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('favSinContenido')
-let storage = sessionStorage.getItem('gifsFav')
+let storage = localStorage.getItem('gifsFav')
 let src = []; 
 // variables del trending
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
@@ -25,12 +25,60 @@ function agregarfav(){
             return response.json();
         })
         .then((item)=>{
-            let gif = item.data.images.original.url
-            let cuadro = document.createElement('img')
-            cuadro.setAttribute('src', gif)
-            cuadro.classList.add('cuadro')
-            cuadros.appendChild(cuadro)
-          console.log(item)
+            let gif = document.createElement('div')
+            let srcgif = item.data.images.original.url
+            let cuadro = document.createElement('img');
+            let corazon = document.createElement('img');
+            let padreinconos = document.createElement('div')
+            let descarga = document.createElement('img')
+            let max = document.createElement('img')
+            gif.appendChild(padreinconos)
+            gif.classList.add('giffav')
+            cuadro.setAttribute('src', srcgif);
+            cuadro.classList.add('cuadro');
+            cuadro.setAttribute('data', item.data.title)
+            cuadro.setAttribute('data2', item.data.username)
+            cuadro.setAttribute('data3', item.data.id)
+            gif.appendChild(cuadro);
+            cuadros.appendChild(gif)
+            console.log(item);
+            let user = document.createElement('p')
+            let name = document.createElement('h3')
+            user.innerHTML = cuadro.getAttribute('data2')
+            name.innerHTML = cuadro.getAttribute('data')
+            let cajaUserName = document.createElement('div')
+            cajaUserName.appendChild(user)
+            cajaUserName.appendChild(name)
+            gif.appendChild(cajaUserName)
+            cajaUserName.style.display = 'none'
+            padreinconos.classList.add('padreIconosfav')
+            gif.addEventListener('mouseover', () => {
+                padreinconos.appendChild(corazon);
+                padreinconos.appendChild(descarga)
+                padreinconos.appendChild(max)
+                gif.style.backgroundColor = '#572EE5'
+                cuadro.style.opacity = '0.5'
+                cajaUserName.classList.add('padreUserNamefav')
+                descarga.style.display = 'block'
+                descarga.classList.add('iconDownload')
+                corazon.style.display = 'block'
+                corazon.classList.add('iconfav')
+                max.style.display = 'block'
+                max.classList.add('iconMax')
+                cajaUserName.style.display = 'flex'
+
+            }, false)
+
+            gif.addEventListener('mouseout', () => {
+                gif.style.backgroundColor = 'transparent'
+                cuadro.style.opacity = '1'
+                corazon.style.display = 'none'
+                descarga.style.display = 'none'
+                  max.style.display = 'none'
+                cajaUserName.classList.remove('padreUserName')
+                cajaUserName.style.display = 'none'
+            },false)
+
         })
     }) 
 }
@@ -248,3 +296,8 @@ Trendings()
     btn_atras.addEventListener('mouseout', () => {
         flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
     });
+
+    var mediaqueryList = window.matchMedia("(max-width: 500px)");
+    if (mediaqueryList.matches) {
+        logo.setAttribute('src', 'imagenes/logo-mobile.svg')
+    }

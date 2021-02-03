@@ -42,13 +42,18 @@ li{
 }
 
 
-.menu{
+.menu, #menu{
     text-decoration: none;
     color: #572EE5;
 }
-.menu:visited{
-    color: #572EE5;
+
+
+.favoritosh5{
+    color: #9CAFC3;
+    text-decoration: none;
 }
+
+
 /*portada*/
 
 #portada{
@@ -81,10 +86,16 @@ li{
 
 .cuadro{
     border: 1px solid black;
-    margin: 5%;
-    width: 20vw;
+   
+    width: 21vw;
     height: 30vh;
 }
+
+.giffav{
+    display: block;
+    height: auto ;
+}
+
 
 #favSinContenido{
     position: relative;
@@ -96,6 +107,30 @@ li{
     right: 20%;
     color: #50E3C2;
     font-family: 'Montserrat-bold', sans-serif;
+}
+
+.padreUserNamefav{
+    transform: translateY(-30px);
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    width: 20%;
+    top: 6rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.padreIconosfav{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 10vw;
+    top: 1rem;
+}
+
+.padreIconosfav img{
+    margin-left: 1vw;
 }
 
 /*trending gifs */
@@ -134,8 +169,8 @@ li{
 }
 
 .gif{
-    width: 25vw;
-    height: 35vh;
+    width: 22.3vw;
+ 
     position: relative;
 }
 
@@ -164,13 +199,14 @@ li{
     bottom: 3vh;
     position: absolute;
     color: white;
-    font-weight: 400;
+   left: 2%;
     width: 30%;
     top: 4rem;
 }
 
 .padreUserNameb h3{
     width: 20vw;
+    left: 2%;
 }
 
 .padreUserNameb p{
@@ -179,7 +215,6 @@ li{
 
 
 .padreIconos{
-
     position: absolute;
     display: flex;
     justify-content: flex-end;
@@ -305,6 +340,7 @@ li{
     content: url("../imagenes/icon-fav-active.svg");
     background-color: white;
     border-radius: 20%;
+    width: 2vw;
 }
 
 
