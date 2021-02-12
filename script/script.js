@@ -18,8 +18,7 @@ let gifp = document.getElementById('gifp')
 let compartir = document.getElementById('compartir');
 let copyright = document.getElementById('copyright');
 let elementoslista = document.querySelectorAll('.menu');
-let favoritos = [] //array de favoritos
-
+let gifsfav = JSON.parse(localStorage.getItem('gifsFav')) || [];
 let dark = false;
 
 // aparicion de los gifs
@@ -31,7 +30,7 @@ async function Trendings() {
     return gifs;
 }
 
-let gifsfav = []
+
 Trendings()
     .then(imagen => {
         console.log(imagen);
@@ -121,15 +120,9 @@ Trendings()
                 corazon.classList.toggle('iconfav-hover');
             }, false)
             corazon.addEventListener('click', function favgifs(event) {
-                event.target.classList.toggle('iconfavActive');
-                event.target.classList.toggle('iconfav');
-                //let urlGifFav = imggif.getAttribute('src')
-                let idGifFav = imggif.getAttribute('data3')
-                gifsfav.push(idGifFav)
-                console.log(gifsfav)
-                localStorage.setItem('gifsFav', gifsfav)
-            }, )
-
+                this.event = event
+                subirgifofav(event,imggif)
+            },false)
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
@@ -157,6 +150,14 @@ Trendings()
     });
 
    
+    function subirgifofav(event,imggif){
+        event.target.classList.toggle('iconfavActive');
+        event.target.classList.toggle('iconfav');
+        let idGifFav = imggif.getAttribute('data3')
+        gifsfav.push(idGifFav)
+        console.log(gifsfav)
+        localStorage.setItem('gifsFav', JSON.stringify(gifsfav))
+    }
 
 
 let corazonEnMax = document.getElementById('corazonEnMax');
@@ -455,14 +456,9 @@ search.addEventListener('keydown', event => {
                         corazon.classList.toggle('iconfav-hover');
                     }, false)
                     corazon.addEventListener('click', function favgifs(event) {
-                        event.target.classList.toggle('iconfavActive');
-                        event.target.classList.toggle('iconfav');
-                        //let urlGifFav = imggif.getAttribute('src')
-                        let idGifFav = imggif.getAttribute('data3')
-                        gifsfav.push(idGifFav)
-                        console.log(gifsfav)
-                        localStorage.setItem('gifsFav', gifsfav)
-                    }, false)
+                        this.event = event
+                        subirgifofav(event,imggif)
+                    },false)
 
                     imggif.addEventListener('mouseout', () => {
                         gif.style.backgroundColor = 'transparent'
@@ -589,14 +585,9 @@ btnVerMas.onclick = () => {
                     corazon.classList.toggle('iconfav-hover');
                 }, false)
                 corazon.addEventListener('click', function favgifs(event) {
-                    event.target.classList.toggle('iconfavActive');
-                    event.target.classList.toggle('iconfav');
-                    //let urlGifFav = imggif.getAttribute('src')
-                    let idGifFav = imggif.getAttribute('data3')
-                    gifsfav.push(idGifFav)
-                    console.log(gifsfav)
-                    localStorage.setItem('gifsFav', gifsfav)
-                }, false)
+                    this.event = event
+                    subirgifofav(event,imggif)
+                },false)
 
                 imggif.addEventListener('mouseout', () => {
                     gif.style.backgroundColor = 'transparent'
@@ -746,14 +737,9 @@ const crearSugerencias = (encontrados, papa) => {
                             corazon.classList.toggle('iconfav-hover');
                         }, false)
                         corazon.addEventListener('click', function favgifs(event) {
-                            event.target.classList.toggle('iconfavActive');
-                            event.target.classList.toggle('iconfav');
-                            //let urlGifFav = imggif.getAttribute('src')
-                            let idGifFav = imggif.getAttribute('data3')
-                            gifsfav.push(idGifFav)
-                            console.log(gifsfav)
-                            localStorage.setItem('gifsFav', gifsfav)
-                        }, false)
+                            this.event = event
+                            subirgifofav(event,imggif)
+                        },false)
 
                         imggif.addEventListener('mouseout', () => {
                             gif.style.backgroundColor = 'transparent'

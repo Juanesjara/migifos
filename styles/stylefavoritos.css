@@ -93,7 +93,7 @@ li{
 
 .giffav{
     display: block;
-    height: auto ;
+    height: 30vh;
 }
 
 
@@ -318,8 +318,6 @@ li{
     content: url('../imagenes/icon-download.svg');
     z-index: 1;
     position: relative;
-
-   
     display: inline-block;
 }
 .iconDownload-hover{
@@ -341,6 +339,7 @@ li{
     background-color: white;
     border-radius: 20%;
     width: 2vw;
+    z-index: 99;
 }
 
 

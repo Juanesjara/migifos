@@ -4,30 +4,136 @@ let btn_atras = document.getElementById('flecha-Izquierda');
 
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('gifoSinContenido')
-let storage = sessionStorage.getItem('MisGifos')
-let src = []; 
-
-(() =>{
+let storage = JSON.parse(localStorage.getItem('MisGifos'));
+ console.log(storage)
+/*(() =>{
     if(storage === null){
         return;
     }else{
         src = storage.split(',', 100)
     }
-})()
+})()*/
  
-if(src.length > 0){
+if(storage.length > 0){
     noGifs.classList.add('display-none')
 }
 
 function agregargifo(){
-    src.forEach(url => {
-        let cuadro = document.createElement('img')
-        cuadro.setAttribute('src', url)
-        cuadro.classList.add('cuadro')
-        cuadros.appendChild(cuadro)
+    storage.forEach((element) => {
+        fetch(`https://api.giphy.com/v1/gifs/${element}?api_key=${apiKey}`)
+        .then((response) =>{
+            return response.json();
+        })
+        .then((item)=>{
+            console.log(item)
+            let gif = document.createElement('div')
+            let srcgif = item.data.images.original.url
+            let cuadro = document.createElement('img');
+            let corazon = document.createElement('img');
+            let padreinconos = document.createElement('div')
+            let descarga = document.createElement('img')
+            let max = document.createElement('img')
+            gif.appendChild(padreinconos)
+            gif.classList.add('giffav')
+            cuadro.setAttribute('src', srcgif);
+            cuadro.classList.add('cuadro');
+            cuadro.setAttribute('data', item.data.title)
+            cuadro.setAttribute('data2', item.data.username)
+            cuadro.setAttribute('data3', item.data.id)
+            gif.appendChild(cuadro);
+            cuadros.appendChild(gif)
+            console.log(item);
+            let user = document.createElement('p')
+            let name = document.createElement('h3')
+            user.innerHTML = cuadro.getAttribute('data2')
+            name.innerHTML = cuadro.getAttribute('data')
+            let cajaUserName = document.createElement('div')
+            cajaUserName.appendChild(user)
+            cajaUserName.appendChild(name)
+            gif.appendChild(cajaUserName)
+            cajaUserName.style.display = 'none'
+            padreinconos.classList.add('padreIconosfav')
+            gif.addEventListener('mouseover', () => {
+                padreinconos.appendChild(corazon);
+                padreinconos.appendChild(descarga)
+                padreinconos.appendChild(max)
+                gif.style.backgroundColor = '#572EE5'
+                cuadro.style.opacity = '0.5'
+                cajaUserName.classList.add('padreUserNamefav')
+                descarga.style.display = 'block'
+                descarga.classList.add('iconDownload')
+                corazon.style.display = 'block'
+                corazon.classList.add('iconfav')
+                max.style.display = 'block'
+                max.classList.add('iconMax')
+                cajaUserName.style.display = 'flex'
+
+            }, false)
+
+            gif.addEventListener('mouseout', () => {
+                gif.style.backgroundColor = 'transparent'
+                cuadro.style.opacity = '1'
+                corazon.style.display = 'none'
+                descarga.style.display = 'none'
+                  max.style.display = 'none'
+                cajaUserName.classList.remove('padreUserName')
+                cajaUserName.style.display = 'none'
+            },false)
+
+            max.addEventListener('mouseover', function () {
+                max.classList.toggle('iconMax-hover');
+                max.classList.toggle('iconMax');
+            })
+
+            max.addEventListener('mouseout', function () {
+                max.classList.toggle('iconMax');
+                max.classList.toggle('iconMax-hover');
+            })
+
+            max.addEventListener('click', function () {
+                console.log(cuadro)
+                let srcdelgif = cuadro.src
+                let userdelgif = cuadro.getAttribute('data2')
+                let namedelgif = cuadro.getAttribute('data')
+                ventana(srcdelgif, userdelgif, namedelgif)
+            })
+
+            descarga.addEventListener('mouseover', function () {
+                descarga.classList.toggle('iconDownload-hover');
+                descarga.classList.toggle('iconDownload');
+            })
+            descarga.addEventListener('mouseout', function () {
+                descarga.classList.toggle('iconDownload');
+                descarga.classList.toggle('iconDownload-hover');
+            })
+            descarga.addEventListener('click', () => {
+                return descargarMiGifo(cuadro);
+            }, false)
+
+            corazon.addEventListener('mouseover', function () {
+                corazon.classList.toggle('iconfav-hover');
+                corazon.classList.toggle('iconfav');
+            })
+            corazon.addEventListener('mouseout', function () {
+                corazon.classList.toggle('iconfav');
+                corazon.classList.toggle('iconfav-hover');
+            })
+            corazon.addEventListener('click', function favgifs(event) {
+                let urlMiGifo = cuadro.getAttribute('data3')
+                console.log(urlMiGifo)
+                let i = storage.indexOf(urlMiGifo)
+                console.log(i)
+                storage.splice( i, 1 );
+                localStorage.setItem('MisGifos', JSON.stringify(storage));
+                window.location.href = "./gifos.html"
+            
+            })
+        })
     }) 
 }
 agregargifo();
+
+
 
 
 

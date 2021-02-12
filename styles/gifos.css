@@ -79,9 +79,13 @@ li{
 
 .cuadro{
     border: 1px solid black;
-    margin: 5%;
+    
     width: 20vw;
     height: 30vh;
+}
+
+.padreIconosfav img {
+    margin-left: 1vw;
 }
 
 #gifoSinContenido{
@@ -95,6 +99,40 @@ li{
     color: #50E3C2;
     font-family: 'Montserrat-bold', sans-serif;
 }
+
+.giffav{
+    display: block;
+    height: 30vh ;
+}
+
+.cuadro{
+    border: 1px solid black;
+   
+    width: 21vw;
+    height: 30vh;
+}
+
+.padreIconosfav{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 10vw;
+    top: 1rem;
+}
+.padreUserNamefav{
+    transform: translateY(-30px);
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    width: 20%;
+    top: 6rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+
+
 /*trending*/
 
 #trending h3{
@@ -302,13 +340,13 @@ li{
     content: url('../imagenes/icon-download-hover.svg');
 }
 .iconfav{
-    content: url('../imagenes/icon-fav.svg');
+    content: url('../imagenes/icon-trash-normal.svg');
     z-index: 1;
     position: relative;
 }
 
 .iconfav-hover{
-    content: url('../imagenes/icon-fav-hover.svg');
+    content: url('../imagenes/icon-trash-hover.svg');
 }
 
 .iconfavActive{

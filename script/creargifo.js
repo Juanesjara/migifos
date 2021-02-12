@@ -94,6 +94,7 @@ function subirGrabacion(){
     .then((data) => {
         console.log(data)
         gifoSubido()
+        guardarMiGifo(data.data.id)
     })
 }
 

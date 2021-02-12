@@ -62,13 +62,12 @@ function agregarfav(){
                 descarga.style.display = 'block'
                 descarga.classList.add('iconDownload')
                 corazon.style.display = 'block'
-                corazon.classList.add('iconfav')
+                corazon.classList.add('iconfavActive')
                 max.style.display = 'block'
                 max.classList.add('iconMax')
                 cajaUserName.style.display = 'flex'
 
             }, false)
-
             gif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 cuadro.style.opacity = '1'
@@ -79,10 +78,73 @@ function agregarfav(){
                 cajaUserName.style.display = 'none'
             },false)
 
+            max.addEventListener('mouseover', function () {
+                max.classList.toggle('iconMax-hover');
+                max.classList.toggle('iconMax');
+            })
+
+            max.addEventListener('mouseout', function () {
+                max.classList.toggle('iconMax');
+                max.classList.toggle('iconMax-hover');
+            })
+
+            max.addEventListener('click', function () {
+                console.log(cuadro)
+                let srcdelgif = cuadro.src
+                let userdelgif = cuadro.getAttribute('data2')
+                let namedelgif = cuadro.getAttribute('data')
+                ventana(srcdelgif, userdelgif, namedelgif)
+            })
+
+            descarga.addEventListener('mouseover', function () {
+                descarga.classList.toggle('iconDownload-hover');
+                descarga.classList.toggle('iconDownload');
+            })
+            descarga.addEventListener('mouseout', function () {
+                descarga.classList.toggle('iconDownload');
+                descarga.classList.toggle('iconDownload-hover');
+            })
+            descarga.addEventListener('click', () => {
+                return descargarMiGifo(cuadro);
+            }, false)
+
+            corazon.addEventListener('mouseover', function () {
+                corazon.classList.toggle('iconfav-hover');
+                corazon.classList.toggle('iconfav');
+            })
+            corazon.addEventListener('mouseout', function () {
+                corazon.classList.toggle('iconfav');
+                corazon.classList.toggle('iconfav-hover');
+            })
+            corazon.addEventListener('click', function favgifs(event) {
+                let urlMiGifo = cuadro.getAttribute('data3')
+                console.log(urlMiGifo)
+                let i = storage.indexOf(urlMiGifo)
+                console.log(i)
+                storage.splice( i, 1 );
+                localStorage.setItem('MisGifos', JSON.stringify(storage));
+                window.location.href = "./gifos.html"
+            
+            })
         })
     }) 
 }
 agregarfav();
+
+function ventana(imggif, user, name) {
+    let gifmaxhtml = document.getElementById('gifMax')
+    gifmaxhtml.classList.add('gifmax')
+    gifmaxhtml.classList.remove('none')
+    let body = document.querySelectorAll('body')[0]
+    body.classList.add('overflow')
+    let cuadrogif = document.getElementById('gif-en-max')
+    cuadrogif.setAttribute('src', imggif)
+    let userhtml = document.getElementById('User')
+    userhtml.innerHTML = user
+    let namehtml = document.getElementById('titulo-en-max')
+    namehtml.innerHTML = name
+}
+
 
 // trendings function
 
