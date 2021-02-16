@@ -339,14 +339,25 @@ li{
 .iconDownload-hover{
     content: url('../imagenes/icon-download-hover.svg');
 }
-.iconfav{
+
+.icontrash{
     content: url('../imagenes/icon-trash-normal.svg');
     z-index: 1;
     position: relative;
 }
 
-.iconfav-hover{
+.icontrash-hover{
     content: url('../imagenes/icon-trash-hover.svg');
+}
+
+.iconfav{
+    content: url('../imagenes/icon-fav.svg');
+    z-index: 1;
+    position: relative;
+}
+
+.iconfav-hover{
+    content: url('../imagenes/icon-fav-hover.svg');
 }
 
 .iconfavActive{

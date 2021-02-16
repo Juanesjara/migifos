@@ -1,7 +1,7 @@
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
 let btn_adelante = document.getElementById('flecha-Derecha');
 let btn_atras = document.getElementById('flecha-Izquierda');
-
+let storagefav = JSON.parse(localStorage.getItem('gifsFav'));
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('gifoSinContenido')
 let storage = JSON.parse(localStorage.getItem('MisGifos'));
@@ -63,7 +63,7 @@ function agregargifo(){
                 descarga.style.display = 'block'
                 descarga.classList.add('iconDownload')
                 corazon.style.display = 'block'
-                corazon.classList.add('iconfav')
+                corazon.classList.add('icontrash')
                 max.style.display = 'block'
                 max.classList.add('iconMax')
                 cajaUserName.style.display = 'flex'
@@ -111,12 +111,12 @@ function agregargifo(){
             }, false)
 
             corazon.addEventListener('mouseover', function () {
-                corazon.classList.toggle('iconfav-hover');
-                corazon.classList.toggle('iconfav');
+                corazon.classList.toggle('icontrash-hover');
+                corazon.classList.toggle('icontrash');
             })
             corazon.addEventListener('mouseout', function () {
-                corazon.classList.toggle('iconfav');
-                corazon.classList.toggle('iconfav-hover');
+                corazon.classList.toggle('icontrash');
+                corazon.classList.toggle('icontrash-hover');
             })
             corazon.addEventListener('click', function favgifs(event) {
                 let urlMiGifo = cuadro.getAttribute('data3')
@@ -174,6 +174,7 @@ Trendings()
             let urlGif = img.images.original.url
             imggif.setAttribute('data', img.title) // data titulo
             imggif.setAttribute('data2', img.username) // data username
+            imggif.setAttribute('data3', img.id) // id
             imggif.setAttribute('src', urlGif)
             imggif.classList.add('giftrending')
             gif.appendChild(imggif);
@@ -250,13 +251,8 @@ Trendings()
                 corazon.classList.toggle('iconfav-hover');
             })
             corazon.addEventListener('click', function favgifs(event) {
-                event.target.classList.toggle('iconfavActive');
-                event.target.classList.toggle('iconfav');
-                let urlGifFav = imggif.getAttribute('src')
-                gifsfav.push(urlGifFav)
-                console.log(gifsfav)
-                sessionStorage.setItem('gifsFav', gifsfav)
-                window.location.href = "favoritos.html"
+                this.event = event
+                subirgifofav(event, imggif)
             })
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
@@ -282,6 +278,17 @@ Trendings()
         }
 
     });
+
+    function subirgifofav(event, imggif) {
+        event.target.classList.toggle('iconfavActive');
+        event.target.classList.toggle('iconfav');
+        let idGifFav = imggif.getAttribute('data3')
+        storagefav.push(idGifFav)
+        console.log(storagefav)
+        localStorage.setItem('gifsFav', JSON.stringify(storagefav))
+        window.location.href = "./favoritos.html"
+    }
+
 
     (function () {
         CarruselTrending();

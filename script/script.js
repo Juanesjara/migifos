@@ -62,7 +62,7 @@ Trendings()
 
             //mouseover de los gif
 
-            function mouseovergif(){
+            function mouseovergif() {
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
                 padreinconos.appendChild(corazon);
@@ -121,8 +121,8 @@ Trendings()
             }, false)
             corazon.addEventListener('click', function favgifs(event) {
                 this.event = event
-                subirgifofav(event,imggif)
-            },false)
+                subirgifofav(event, imggif)
+            }, false)
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 imggif.style.opacity = '1'
@@ -142,22 +142,22 @@ Trendings()
                     let namedelgif = imggif.getAttribute('data')
                     let idDelGif = imggif.getAttribute('data3')
                     ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
-                },false)
+                }, false)
             }
 
         }
 
     });
 
-   
-    function subirgifofav(event,imggif){
-        event.target.classList.toggle('iconfavActive');
-        event.target.classList.toggle('iconfav');
-        let idGifFav = imggif.getAttribute('data3')
-        gifsfav.push(idGifFav)
-        console.log(gifsfav)
-        localStorage.setItem('gifsFav', JSON.stringify(gifsfav))
-    }
+
+function subirgifofav(event, imggif) {
+    event.target.classList.toggle('iconfavActive');
+    event.target.classList.toggle('iconfav');
+    let idGifFav = imggif.getAttribute('data3')
+    gifsfav.push(idGifFav)
+    console.log(gifsfav)
+    localStorage.setItem('gifsFav', JSON.stringify(gifsfav))
+}
 
 
 let corazonEnMax = document.getElementById('corazonEnMax');
@@ -457,8 +457,8 @@ search.addEventListener('keydown', event => {
                     }, false)
                     corazon.addEventListener('click', function favgifs(event) {
                         this.event = event
-                        subirgifofav(event,imggif)
-                    },false)
+                        subirgifofav(event, imggif)
+                    }, false)
 
                     imggif.addEventListener('mouseout', () => {
                         gif.style.backgroundColor = 'transparent'
@@ -586,8 +586,8 @@ btnVerMas.onclick = () => {
                 }, false)
                 corazon.addEventListener('click', function favgifs(event) {
                     this.event = event
-                    subirgifofav(event,imggif)
-                },false)
+                    subirgifofav(event, imggif)
+                }, false)
 
                 imggif.addEventListener('mouseout', () => {
                     gif.style.backgroundColor = 'transparent'
@@ -738,8 +738,8 @@ const crearSugerencias = (encontrados, papa) => {
                         }, false)
                         corazon.addEventListener('click', function favgifs(event) {
                             this.event = event
-                            subirgifofav(event,imggif)
-                        },false)
+                            subirgifofav(event, imggif)
+                        }, false)
 
                         imggif.addEventListener('mouseout', () => {
                             gif.style.backgroundColor = 'transparent'

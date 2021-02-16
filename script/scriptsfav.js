@@ -1,30 +1,37 @@
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('favSinContenido')
-let storage = localStorage.getItem('gifsFav')
+let storage = JSON.parse(localStorage.getItem('gifsFav'))
 let src = []; 
 // variables del trending
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
 let btn_adelante = document.getElementById('flecha-Derecha');
 let btn_atras = document.getElementById('flecha-Izquierda');
-(() =>{
+/*(() =>{
     if(storage === null){
         return;
     }else{
         src = storage.split(',', 100)
     }
-})()
+})()*/
+let numeros = [0,1]
+let numero = 10
+for(let i=2;i<numero;i++){
+    numeros[i] = numeros[i-2] + numeros[i-1]
+}
+console.log(numeros)
  
-if(src.length > 0){
+if(storage.length > 0){
     noGifs.classList.add('display-none')
 }
 
 function agregarfav(){
-    src.forEach((element) => {
+    storage.forEach((element) => {
         fetch(`https://api.giphy.com/v1/gifs/${element}?api_key=${apiKey}`)
         .then((response) =>{
             return response.json();
         })
         .then((item)=>{
+            console.log(item)
             let gif = document.createElement('div')
             let srcgif = item.data.images.original.url
             let cuadro = document.createElement('img');
@@ -32,7 +39,7 @@ function agregarfav(){
             let padreinconos = document.createElement('div')
             let descarga = document.createElement('img')
             let max = document.createElement('img')
-            gif.appendChild(padreinconos)
+            
             gif.classList.add('giffav')
             cuadro.setAttribute('src', srcgif);
             cuadro.classList.add('cuadro');
@@ -49,6 +56,7 @@ function agregarfav(){
             let cajaUserName = document.createElement('div')
             cajaUserName.appendChild(user)
             cajaUserName.appendChild(name)
+            gif.appendChild(padreinconos)
             gif.appendChild(cajaUserName)
             cajaUserName.style.display = 'none'
             padreinconos.classList.add('padreIconosfav')
@@ -59,13 +67,13 @@ function agregarfav(){
                 gif.style.backgroundColor = '#572EE5'
                 cuadro.style.opacity = '0.5'
                 cajaUserName.classList.add('padreUserNamefav')
-                descarga.style.display = 'block'
+                descarga.style.display = 'flex'
                 descarga.classList.add('iconDownload')
-                corazon.style.display = 'block'
+                corazon.style.display = 'flex'
                 corazon.classList.add('iconfavActive')
-                max.style.display = 'block'
+                max.style.display = 'flex'
                 max.classList.add('iconMax')
-                cajaUserName.style.display = 'flex'
+                cajaUserName.style.display = 'inline-block'
 
             }, false)
             gif.addEventListener('mouseout', () => {
@@ -122,8 +130,8 @@ function agregarfav(){
                 let i = storage.indexOf(urlMiGifo)
                 console.log(i)
                 storage.splice( i, 1 );
-                localStorage.setItem('MisGifos', JSON.stringify(storage));
-                window.location.href = "./gifos.html"
+                localStorage.setItem('gifsFav', JSON.stringify(storage));
+                window.location.href = "./favoritos.html"
             
             })
         })
@@ -163,6 +171,16 @@ function ventana(imggif, user, name) {
     namehtml.innerHTML = name
 }
 
+function subirgifofav(event, imggif) {
+    event.target.classList.toggle('iconfavActive');
+    event.target.classList.toggle('iconfav');
+    let idGifFav = imggif.getAttribute('data3')
+    storage.push(idGifFav)
+    console.log(storage)
+    localStorage.setItem('gifsFav', JSON.stringify(storage))
+    window.location.href = "./favoritos.html"
+}
+
 
 async function Trendings() {
     let url = 'https://api.giphy.com/v1/gifs/trending?api_key=' + apiKey;
@@ -172,7 +190,7 @@ async function Trendings() {
     return gifs;
 }
 
-let gifsfav = []
+
 Trendings()
     .then(imagen => {
         console.log(imagen);
@@ -185,6 +203,7 @@ Trendings()
             let urlGif = img.images.original.url
             imggif.setAttribute('data', img.title) // data titulo
             imggif.setAttribute('data2', img.username) // data username
+            imggif.setAttribute('data3', img.id) // id
             imggif.setAttribute('src', urlGif)
             imggif.classList.add('giftrending')
             gif.appendChild(imggif);
@@ -261,13 +280,8 @@ Trendings()
                 corazon.classList.toggle('iconfav-hover');
             })
             corazon.addEventListener('click', function favgifs(event) {
-                event.target.classList.toggle('iconfavActive');
-                event.target.classList.toggle('iconfav');
-                let urlGifFav = imggif.getAttribute('src')
-                gifsfav.push(urlGifFav)
-                console.log(gifsfav)
-                sessionStorage.setItem('gifsFav', gifsfav)
-                window.location.href = "favoritos.html"
+                this.event = event
+                subirgifofav(event, imggif)
             })
             imggif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'

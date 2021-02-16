@@ -94,6 +94,8 @@ li{
 .giffav{
     display: block;
     height: 30vh;
+    margin: 1vw;
+    width: 21vw;
 }
 
 
@@ -110,23 +112,22 @@ li{
 }
 
 .padreUserNamefav{
-    transform: translateY(-30px);
-    position: absolute;
+    
+    position: relative;
     color: white;
     font-weight: 400;
-    width: 20%;
-    top: 6rem;
+    width: 15vw;
+    bottom: 22vh;
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+    left: 0.5vw;
 }
 
 .padreIconosfav{
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: flex-end;
     padding-left: 10vw;
-    top: 1rem;
+    bottom: 29vh;
 }
 
 .padreIconosfav img{
@@ -175,21 +176,6 @@ li{
 }
 
 
-.padreUserName{
-    bottom: 1vh;
-    position: absolute;
-    color: white;
-    font-weight: 400;
-    width: 30%;
-    top: 7rem;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
-.padreUserName p{
-    position: relative;
-    
-}
 
 .display-none{
     display: none;
