@@ -39,7 +39,7 @@
         width: 50%;
     }
 
-    #titulo strong{
+    #titulo div{
         position: relative;
         left: 0vw;
        
@@ -52,13 +52,13 @@
         bottom: 2vh;
     }
 
+    #favorito{
+        right: 5vw;
+    }
+
     .input{
         width: 72vw;
         left: 12vw;
-    }
-
-    #portada{
-        bottom: 1vw;
     }
 
     #cuadros{
@@ -82,9 +82,10 @@
       top: 7vh;
       width: 78vw;
       height: 40vh;
+      right: 5vw;
     }
 
-    .gif{
+    .cuadro{
         width: 45vw;
         height: 29vh;
     }
@@ -92,6 +93,10 @@
     .giftrending{
         width: 45vw;
         height: 40vh;
+    }
+
+    .giffav{
+        width: unset;
     }
 
     #gifs{
@@ -109,7 +114,8 @@
     }
 
     #trendinggif{
-        height: 80vh;
+        top: 20vh;
+        height: 60vh;
     }
 
     #btnVermas{
@@ -138,8 +144,20 @@
         font-size: 0.8em;
     }
 
+    footer a{
+        top: 2vw;
+    }
+
     #compartir{
         width: 35vw;
+    }
+
+    .menu{
+        color: white;
+    }
+
+    #barraAzul2{
+        top: 23vh;
     }
 
 }

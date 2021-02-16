@@ -68,15 +68,16 @@ li{
     color: #50E3C2;
 }
 
-#titulo div{
+#titulo strong{
     position: relative;
     left: 7vw;
+    color: #572EE5;
 }
 
 #portada{
     position: relative;
     padding-left: 35vw;
-    bottom: 5vh;
+    bottom: 3vh;
     
 }
 .imagenPortada{
@@ -260,8 +261,10 @@ strong{
     position: relative;
     display: flex;
     justify-content: center;
-    
+    text-transform: capitalize;
 }
+
+
 
 /*trending gifs*/
 #trendinggif{

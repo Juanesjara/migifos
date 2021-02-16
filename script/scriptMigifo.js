@@ -354,3 +354,23 @@ Trendings()
     btn_atras.addEventListener('mouseout', () => {
         flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
     });
+
+    let burguer = document.getElementById('burguer');
+
+    let btn_crear = document.getElementById('boton_crear');
+    
+    let mediaqueryList = window.matchMedia("(max-width: 500px)");
+    let ul = document.getElementById('lista');
+    
+    let li = document.querySelectorAll('li');
+    
+    burguer.addEventListener('click', () => {
+        ul.classList.toggle('menu-desplegado')
+        
+        elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
+        elementoslista.forEach(elementos => elementos.style.color = 'white');
+    })
+    
+    if (mediaqueryList.matches) {
+        logo.setAttribute('src', 'imagenes/logo-mobile.svg')
+    }

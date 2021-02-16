@@ -60,22 +60,24 @@ function agregarfav(){
             gif.appendChild(cajaUserName)
             cajaUserName.style.display = 'none'
             padreinconos.classList.add('padreIconosfav')
-            gif.addEventListener('mouseover', () => {
+
+             function mouseovergif() {
+                gif.style.backgroundColor = '#572EE5'
+                cuadro.style.opacity = '0.5'
                 padreinconos.appendChild(corazon);
                 padreinconos.appendChild(descarga)
                 padreinconos.appendChild(max)
-                gif.style.backgroundColor = '#572EE5'
-                cuadro.style.opacity = '0.5'
-                cajaUserName.classList.add('padreUserNamefav')
-                descarga.style.display = 'flex'
+                cajaUserName.classList.add('padreUserName')
+                descarga.style.display = 'block'
                 descarga.classList.add('iconDownload')
-                corazon.style.display = 'flex'
+                corazon.style.display = 'block'
                 corazon.classList.add('iconfavActive')
-                max.style.display = 'flex'
+                max.style.display = 'block'
                 max.classList.add('iconMax')
-                cajaUserName.style.display = 'inline-block'
+            }
 
-            }, false)
+
+            gif.addEventListener('mouseover', mouseovergif, false)
             gif.addEventListener('mouseout', () => {
                 gif.style.backgroundColor = 'transparent'
                 cuadro.style.opacity = '1'
@@ -132,8 +134,21 @@ function agregarfav(){
                 storage.splice( i, 1 );
                 localStorage.setItem('gifsFav', JSON.stringify(storage));
                 window.location.href = "./favoritos.html"
-            
             })
+            var mediaqueryList = window.matchMedia("(max-width: 500px)");
+            if (mediaqueryList.matches) {
+                gif.removeEventListener('click', mouseovergif)
+                gif.addEventListener('click', () => {
+                    console.log(cuadro)
+                    let srcdelgif = cuadro.src
+                    let userdelgif = cuadro.getAttribute('data2')
+                    let namedelgif = cuadro.getAttribute('data')
+                    let idDelGif = cuadro.getAttribute('data3')
+                    ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                }, false)
+            }
+          
+              
         })
     }) 
 }
@@ -157,19 +172,7 @@ function ventana(imggif, user, name) {
 // trendings function
 
 
-function ventana(imggif, user, name) {
-    let gifmaxhtml = document.getElementById('gifMax')
-    gifmaxhtml.classList.add('gifmax')
-    gifmaxhtml.classList.remove('none')
-    let body = document.querySelectorAll('body')[0]
-    body.classList.add('overflow')
-    let cuadrogif = document.getElementById('gif-en-max')
-    cuadrogif.setAttribute('src', imggif)
-    let userhtml = document.getElementById('User')
-    userhtml.innerHTML = user
-    let namehtml = document.getElementById('titulo-en-max')
-    namehtml.innerHTML = name
-}
+
 
 function subirgifofav(event, imggif) {
     event.target.classList.toggle('iconfavActive');
@@ -224,7 +227,7 @@ Trendings()
 
             //mouseover de los gifs
 
-            gif.addEventListener('mouseover', () => {
+            function mouseovergif() {
                 gif.style.backgroundColor = '#572EE5'
                 imggif.style.opacity = '0.5'
                 padreinconos.appendChild(corazon);
@@ -237,8 +240,10 @@ Trendings()
                 corazon.classList.add('iconfav')
                 max.style.display = 'block'
                 max.classList.add('iconMax')
+            }
 
-            }, false)
+
+            gif.addEventListener('mouseover', mouseovergif, false)
 
             max.addEventListener('mouseover', function () {
                 max.classList.toggle('iconMax-hover');
@@ -292,16 +297,18 @@ Trendings()
                 cajaUserName.classList.remove('padreUserName')
             })
 
-            var mediaqueryList = window.matchMedia("(min-width: 500px)");
+            let mediaqueryList = window.matchMedia("(max-width: 500px)");
             if(mediaqueryList.matches) {
                
-                imggif.addEventListener('click', function () {
+                gif.removeEventListener('click', mouseovergif)
+                gif.addEventListener('click', () => {
                     console.log(imggif)
                     let srcdelgif = imggif.src
                     let userdelgif = imggif.getAttribute('data2')
                     let namedelgif = imggif.getAttribute('data')
-                    ventana(srcdelgif, userdelgif, namedelgif)
-                })
+                    let idDelGif = imggif.getAttribute('data3')
+                    ventana(srcdelgif, userdelgif, namedelgif, idDelGif)
+                }, false)
               }
 
         }
@@ -373,7 +380,24 @@ Trendings()
         flechaI.setAttribute('src', 'imagenes/button-slider-left.svg')
     });
 
-    var mediaqueryList = window.matchMedia("(max-width: 500px)");
-    if (mediaqueryList.matches) {
-        logo.setAttribute('src', 'imagenes/logo-mobile.svg')
-    }
+  
+
+    let burguer = document.getElementById('burguer');
+
+let btn_crear = document.getElementById('boton_crear');
+
+let mediaqueryList = window.matchMedia("(max-width: 500px)");
+let ul = document.getElementById('lista');
+
+let li = document.querySelectorAll('li');
+
+burguer.addEventListener('click', () => {
+    ul.classList.toggle('menu-desplegado')
+    
+    elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
+    elementoslista.forEach(elementos => elementos.style.color = 'white');
+})
+
+if (mediaqueryList.matches) {
+    logo.setAttribute('src', 'imagenes/logo-mobile.svg')
+}

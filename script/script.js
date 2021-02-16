@@ -20,6 +20,30 @@ let copyright = document.getElementById('copyright');
 let elementoslista = document.querySelectorAll('.menu');
 let gifsfav = JSON.parse(localStorage.getItem('gifsFav')) || [];
 let dark = false;
+let trengingp = document.getElementById('trendingp')
+
+async function trengingterms(){
+    let url = 'https://api.giphy.com/v1/trending/searches?api_key=' + apiKey;
+    let response = await fetch(url);
+    let json = await response.json();
+    let terms = json.data;
+    return terms;
+}
+
+trengingterms()
+.then(terminos =>{
+    terminos.splice(5.15)
+    //terminos.forEach(element => element + " s")
+    let nuevosterminos = terminos.join(', ');
+
+    trendingp.innerHTML = nuevosterminos
+})
+
+
+
+
+
+
 
 // aparicion de los gifs
 async function Trendings() {
@@ -318,18 +342,6 @@ function modoNocturno() {
     window.location.href = "index.html"
 }
 
-
-function trenging() {
-    let hola = fetch('https://api.giphy.com/v1/tags/related/{term}' + '?api_key=' + apiKey)
-        .then(response => {
-            console.log(response.json())
-        })
-
-}
-
-trenging()
-
-
 // busquedad de gifs
 let offset = 12;
 let lineaGris = document.getElementById('lineaGris');
@@ -470,7 +482,7 @@ search.addEventListener('keydown', event => {
                         cajaUserName.classList.add('display-none')
                     }, false)
 
-                    var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                    var mediaqueryList = window.matchMedia("(max-width: 500px)");
                     if (mediaqueryList.matches) {
 
                         imggif.addEventListener('click', function () {
@@ -599,7 +611,7 @@ btnVerMas.onclick = () => {
                     cajaUserName.classList.add('display-none')
                 }, false)
 
-                var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                var mediaqueryList = window.matchMedia("(max-width: 500px)");
                 if (mediaqueryList.matches) {
 
                     imggif.addEventListener('click', function () {
@@ -751,7 +763,7 @@ const crearSugerencias = (encontrados, papa) => {
                             cajaUserName.classList.add('display-none')
                         }, false)
 
-                        var mediaqueryList = window.matchMedia("(min-width: 500px)");
+                        var mediaqueryList = window.matchMedia("(max-width: 500px)");
                         if (mediaqueryList.matches) {
 
                             imggif.addEventListener('click', function () {
@@ -806,6 +818,7 @@ let li = document.querySelectorAll('li');
 
 burguer.addEventListener('click', () => {
     ul.classList.toggle('menu-desplegado')
+    
     elementoslista.forEach(elements => elements.classList.toggle('items-menu'))
     elementoslista.forEach(elementos => elementos.style.color = 'white');
 })
