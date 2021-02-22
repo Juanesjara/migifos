@@ -1,6 +1,6 @@
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('favSinContenido')
-let storage = JSON.parse(localStorage.getItem('gifsFav'))
+let storage = JSON.parse(localStorage.getItem('gifsFav') || [])
 let src = []; 
 // variables del trending
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
