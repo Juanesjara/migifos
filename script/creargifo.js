@@ -87,16 +87,14 @@ function subirGrabacion(){
         body: formData,
 		json: true,
     };
-
-
     fetch(`https://upload.giphy.com/v1/gifs`, parametros)
-    .then(response => response.json())
+    .then(response => response.json()) 
     .then((data) => {
         console.log(data)
         gifoSubido()
         guardarMiGifo(data.data.id)
     })
-}
+};
 
 function gifoSubido(){
     textoVideo.innerHTML = 'tu gifo ha sido subido con exito'

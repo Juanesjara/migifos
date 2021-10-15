@@ -1,18 +1,19 @@
 let cuadros = document.getElementById('cuadros')
 let noGifs = document.getElementById('favSinContenido')
-let storage = JSON.parse(localStorage.getItem('gifsFav') || [])
+//let storage = JSON.parse(localStorage.getItem('gifsFav') || [])
+let storage;
 let src = []; 
 // variables del trending
 const apiKey = 'shVzMzUpK3VAtRIltCGAYhTlEuTd81fF';
 let btn_adelante = document.getElementById('flecha-Derecha');
 let btn_atras = document.getElementById('flecha-Izquierda');
-/*(() =>{
-    if(storage === null){
-        return;
+(() =>{
+    if(localStorage.getItem("gifsFav") === null){
+        storage = [];
     }else{
-        src = storage.split(',', 100)
+        storage = JSON.parse(localStorage.getItem("gifsFav"));
     }
-})()*/
+})()
 let numeros = [0,1]
 let numero = 10
 for(let i=2;i<numero;i++){
@@ -32,34 +33,34 @@ function agregarfav(){
         })
         .then((item)=>{
             console.log(item)
-            let gif = document.createElement('div')
-            let srcgif = item.data.images.original.url
+            let gif = document.createElement('div');
+            let srcgif = item.data.images.original.url;
             let cuadro = document.createElement('img');
             let corazon = document.createElement('img');
-            let padreinconos = document.createElement('div')
-            let descarga = document.createElement('img')
-            let max = document.createElement('img')
+            let padreinconos = document.createElement('div');
+            let descarga = document.createElement('img');
+            let max = document.createElement('img');
             
-            gif.classList.add('giffav')
+            gif.classList.add('giffav');
             cuadro.setAttribute('src', srcgif);
             cuadro.classList.add('cuadro');
-            cuadro.setAttribute('data', item.data.title)
-            cuadro.setAttribute('data2', item.data.username)
-            cuadro.setAttribute('data3', item.data.id)
+            cuadro.setAttribute('data', item.data.title);
+            cuadro.setAttribute('data2', item.data.username);
+            cuadro.setAttribute('data3', item.data.id);
             gif.appendChild(cuadro);
-            cuadros.appendChild(gif)
+            cuadros.appendChild(gif);
             console.log(item);
-            let user = document.createElement('p')
-            let name = document.createElement('h3')
-            user.innerHTML = cuadro.getAttribute('data2')
-            name.innerHTML = cuadro.getAttribute('data')
-            let cajaUserName = document.createElement('div')
-            cajaUserName.appendChild(user)
-            cajaUserName.appendChild(name)
-            gif.appendChild(padreinconos)
-            gif.appendChild(cajaUserName)
-            cajaUserName.style.display = 'none'
-            padreinconos.classList.add('padreIconosfav')
+            let user = document.createElement('p');
+            let name = document.createElement('h3');
+            user.innerHTML = cuadro.getAttribute('data2');
+            name.innerHTML = cuadro.getAttribute('data');
+            let cajaUserName = document.createElement('div');
+            cajaUserName.appendChild(user);
+            cajaUserName.appendChild(name);
+            gif.appendChild(padreinconos);
+            gif.appendChild(cajaUserName);
+            cajaUserName.style.display = 'none';
+            padreinconos.classList.add('padreIconosfav');
 
              function mouseovergif() {
                 gif.style.backgroundColor = '#572EE5'
